@@ -7,11 +7,25 @@
     "prepublish": "tsd install && ntsc",
     "test": "mocha tests --recursive"
   },
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "validation"
+  ],
+  "homepage": "http://github.com/goenning/guard-me",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/goenning/guard-me.git"
+  },
+  "bugs": {
+    "url": "http://github.com/goenning/guard-me/issues"
+  },
+  "author": "Guilherme Oenning <oenning.ti@gmail.com>",
   "devDependencies": {
     "chai": "^3.4.1",
     "mocha": "^2.3.4",
     "ntypescript": "^1.201601110604.1"
+  },
+  "license": "GPL",
+  "engines": {
+    "node": ">= 4.0.0"
   }
 }
