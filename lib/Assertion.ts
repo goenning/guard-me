@@ -3,13 +3,13 @@ export class AssertionResult {
   public messages:string[]
 
   constructor() {
-    this.valid = true
-    this.messages = []
+    this.valid = true;
+    this.messages = [];
   }
 
   addMessage(message:string) {
-    this.valid = false
-    this.messages.push(message)
+    this.valid = false;
+    this.messages.push(message);
   }
 }
 
@@ -48,6 +48,7 @@ export class Assertion {
     this._assertions.push(async () => {
       return this._actual === expected;
     })
+    this.message("{0} should be {1}.")
     return this;
   }
 
