@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "commonjs"
+  },
+  "filesGlob": [
+    "**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "files": [
+    "lib/Assertion.ts",
+    "lib/ensure.ts",
+    "lib/Guard.ts",
+    "lib/index.ts",
+    "tests/assertions/custom.test.ts",
+    "tests/assertions/equal.test.ts",
+    "tests/assertions/length.test.ts",
+    "tests/default.test.ts",
+    "tests/object.test.ts",
+    "typings/assertion-error/assertion-error.d.ts",
+    "typings/bluebird/bluebird.d.ts",
+    "typings/chai/chai.d.ts",
+    "typings/mocha/mocha.d.ts",
+    "typings/tsd.d.ts"
+  ],
+  "atom": {
+    "rewriteTsconfig": true
+  }
+}
