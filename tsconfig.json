@@ -2,25 +2,17 @@
   "compilerOptions": {
     "target": "ES6",
     "module": "commonjs",
-    "declaration": true,
+    "declaration": false,
     "outDir": "build"
   },
   "filesGlob": [
-    "**/*.ts"
+    "**/*.ts",
+    "!build"
   ],
   "exclude": [
     "node_modules"
   ],
   "files": [
-    "build/lib/Assertion.d.ts",
-    "build/lib/ensure.d.ts",
-    "build/lib/Guard.d.ts",
-    "build/lib/index.d.ts",
-    "build/tests/assertions/custom.test.d.ts",
-    "build/tests/assertions/equal.test.d.ts",
-    "build/tests/assertions/length.test.d.ts",
-    "build/tests/default.test.d.ts",
-    "build/tests/object.test.d.ts",
     "lib/Assertion.ts",
     "lib/ensure.ts",
     "lib/Guard.ts",

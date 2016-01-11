@@ -3,8 +3,8 @@
   "private": false,
   "version": "0.0.3",
   "description": "next-generation validation library for node.js",
-  "main": "build/index.js",
-  "typings": "build/index.d.ts",
+  "main": "build/lib/index.js",
+  "typings": "build/lib/index.d.ts",
   "scripts": {
     "prepublish": "ntsc",
     "test": "mocha build/tests --recursive"
