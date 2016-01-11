@@ -4,5 +4,5 @@ node_js:
   - "4.2.4"
   - "5.4"
 
-before_script:
-  - ./node_modules/.bin/ntsc
+before_install:
+  - npm install tsd -g
