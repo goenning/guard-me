@@ -4,7 +4,7 @@
   "description": "",
   "main": "lib/index.js",
   "scripts": {
-    "test": "mocha tests/**/*.js"
+    "test": "mocha tests --recursive"
   },
   "author": "",
   "license": "ISC",
@@ -12,7 +12,5 @@
     "chai": "^3.4.1",
     "mocha": "^2.3.4"
   },
-  "dependencies": {
-    "bluebird": "^3.1.1"
-  }
+  "dependencies": {}
 }

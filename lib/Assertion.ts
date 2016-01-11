@@ -1,5 +1,3 @@
-import * as Promise from 'bluebird';
-
 export class AssertionResult {
   public valid:boolean;
   public messages:string[]
@@ -22,9 +20,9 @@ export class Assertion {
   private _lastArgs:any[];
 
   constructor(actual:any) {
-    this._actual = actual;
-    this._messages = [ ];
-    this._assertions = [ ];
+      this._actual = actual;
+      this._messages = [ ];
+      this._assertions = [ ];
   }
 
   message(text:string) {

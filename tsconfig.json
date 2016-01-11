@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES5",
+    "target": "ES6",
     "module": "commonjs"
   },
   "filesGlob": [
@@ -20,7 +20,6 @@
     "tests/default.test.ts",
     "tests/object.test.ts",
     "typings/assertion-error/assertion-error.d.ts",
-    "typings/bluebird/bluebird.d.ts",
     "typings/chai/chai.d.ts",
     "typings/mocha/mocha.d.ts",
     "typings/tsd.d.ts"
