@@ -1,6 +1,7 @@
 ###Work is still in progress!
 
 [![Build Status](https://travis-ci.org/goenning/guard-me.svg?branch=master)](https://travis-ci.org/goenning/guard-me)
+[![npm version](https://badge.fury.io/js/guard-me.svg)](https://badge.fury.io/js/guard-me)
 
 #guard-me
 
