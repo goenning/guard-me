@@ -1,7 +1,7 @@
 {
   "name": "guard-me",
   "version": "0.0.1",
-  "description": "",
+  "description": "next-generation validation library for node.js",
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha tests --recursive"
@@ -10,7 +10,7 @@
   "license": "ISC",
   "devDependencies": {
     "chai": "^3.4.1",
-    "mocha": "^2.3.4"
-  },
-  "dependencies": {}
+    "mocha": "^2.3.4",
+    "ntypescript": "^1.201601110604.1"
+  }
 }
