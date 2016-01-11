@@ -4,7 +4,7 @@
   "description": "next-generation validation library for node.js",
   "main": "lib/index.js",
   "scripts": {
-    "prepublish": "tsd install && ntsc",
+    "prepublish": "ntsc",
     "test": "mocha tests --recursive"
   },
   "keywords": [
