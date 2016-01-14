@@ -6,6 +6,7 @@ import {ValidationResult, ValidationFailure} from './ValidationResult';
 import {Validator} from './validators/Validator';
 import {EqualValidator} from './validators/EqualValidator';
 import {LengthValidator} from './validators/LengthValidator';
+import {CustomValidator} from './validators/CustomValidator';
 import {ValidationContext} from './ValidationContext';
 
 export {
@@ -17,5 +18,6 @@ export {
   ValidationFailure,
   EqualValidator,
   LengthValidator,
-  ValidationContext
+  ValidationContext,
+  CustomValidator
 }

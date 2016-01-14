@@ -6,23 +6,32 @@ export class LengthValidator extends Validator {
   private min:number;
   private max:number;
 
-  constructor(min:number, max?:number) {
-    super();
+  constructor(context:ValidationContext, min:number, max?:number) {
+    super(context);
     this.min = min;
     this.max = max;
   }
 
-  public async validate(context:ValidationContext): Promise<ValidationResult> {
+  public defaultMessageFormat():string {
+    return (this.max) ?
+            "{0} should have between {1} and {2} characters." : 
+            "{0} should have more than {1} characters.";
+  }
+
+  public args() {
+    return [ this._context.value, this.min, this.max ];
+  }
+
+  public async validate(): Promise<ValidationResult> {
     var ok:boolean;
-    
     if (this.max === undefined)
-      ok = context.value.toString().length <= this.min
+      ok = this._context.value.toString().length <= this.min
     else
-      ok = context.value.toString().length >= this.min &&
-           context.value.toString().length <= this.max;
+      ok = this._context.value.toString().length >= this.min &&
+           this._context.value.toString().length <= this.max;
 
     if (!ok)
-      return this.failure("Error");
+      return this.failure();
 
     return this.success();
   }

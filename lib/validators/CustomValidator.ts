@@ -1,27 +1,26 @@
 import {Validator} from './Validator';
 import {ValidationResult} from '../ValidationResult';
 import {ValidationContext} from '../ValidationContext'
-import * as _ from 'lodash';
 
-export class EqualValidator extends Validator {
-  private expected:any;
+export class CustomValidator extends Validator {
+  private custom:(value:any) => Promise<boolean>;
 
-  constructor(context:ValidationContext, expected:any) {
+  constructor(context:ValidationContext, custom:(value:any) => Promise<boolean>) {
     super(context);
-    this.expected = expected;
+    this.custom = custom;
   }
 
   public defaultMessageFormat():string {
-    return "{0} should equal {1}";
+    return "Custom validation failed.";
   }
 
   public args() {
-    return [ this._context.value, this.expected ];
+    return [ this._context.value ];
   }
 
   public async validate(): Promise<ValidationResult> {
-    var equal = _.isEqual(this._context.value, this.expected);
-    if (!equal)
+    var ok = await this.custom(this._context.value);
+    if (!ok)
       return this.failure();
 
     return this.success();
