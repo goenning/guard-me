@@ -16,11 +16,14 @@ describe("Object Validation:", function () {
 
   it("object property validation", async function() {
     var guard = ensure<SaveProductRequest>((check, object) => {
-      check(object.title).length(1, 20)
+      check(object.title).length(1, 5)
     })
 
     var result = await guard.check(request)
-    expect(result.valid).to.be.true
+
+    expect(request.title).to.be.equal('Garmin Swim')
+    expect(result.valid).to.be.false
+    expect(result.messages[0]).to.be.equal("Title shoud have between 1 and 5 characters.")
   })
 
   it("object property with custom validation", async function() {

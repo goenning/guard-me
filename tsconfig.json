@@ -17,6 +17,7 @@
     "lib/Assertion.ts",
     "lib/demo.ts",
     "lib/ensure.ts",
+    "lib/ExpressionProperty.ts",
     "lib/Guard.ts",
     "lib/index.ts",
     "lib/ValidationContext.ts",

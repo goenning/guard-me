@@ -1,4 +1,5 @@
 import {Assertion} from './Assertion';
+import {ExpressionProperty} from './ExpressionProperty';
 
 export interface Ensurer<T> {
   (check: (value:any) => Assertion, object:T): void;
@@ -35,9 +36,13 @@ export class Guard<T> {
   }
 
   async check(object:T): Promise<CheckResult> {
+    for(var propt in object){
+      object[propt] = new ExpressionProperty(propt, object[propt]);
+    }
+
     if (this._ensureFunc) {
-      this._ensureFunc((value:any) => {
-        var assert = new Assertion(value);
+      this._ensureFunc((property:any) => {
+        var assert = new Assertion(property);
         this._assertions.push(assert);
         return assert;
       }, object)
@@ -51,6 +56,10 @@ export class Guard<T> {
           checkResult.addMessage(failure.message);
         }
       }
+    }
+
+    for(var propt in object){
+      object[propt] = object[propt].value;
     }
 
     return checkResult

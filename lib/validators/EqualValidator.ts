@@ -16,7 +16,7 @@ export class EqualValidator extends Validator {
   }
 
   public args() {
-    return [ this._context.value, this.expected ];
+    return [ this._context.name, this.expected ];
   }
 
   public async validate(): Promise<ValidationResult> {

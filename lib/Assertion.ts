@@ -1,15 +1,16 @@
 import {ValidationContext} from './ValidationContext';
 import {ValidationRule} from './ValidationRule';
 import {ValidationResult} from './ValidationResult';
+import {ExpressionProperty} from './ExpressionProperty';
 import * as validators from './validators';
 
 export class Assertion {
   private _rule: ValidationRule;
   private _context: ValidationContext;
 
-  constructor(actual:any) {
-      this._context = new ValidationContext(actual);
-      this._rule = new ValidationRule(this._context);
+  constructor(property:any) {
+    this._context = new ValidationContext(property.value, property.name);
+    this._rule = new ValidationRule(this._context);
   }
 
   message(text:string) {
