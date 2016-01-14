@@ -1,78 +1,37 @@
-export class AssertionResult {
-  public valid:boolean;
-  public messages:string[]
-
-  constructor() {
-    this.valid = true;
-    this.messages = [];
-  }
-
-  addMessage(message:string) {
-    this.valid = false;
-    this.messages.push(message);
-  }
-}
+import {ValidationContext} from './ValidationContext';
+import {ValidationRule} from './ValidationRule';
+import {ValidationResult} from './ValidationResult';
+import * as validators from './validators';
 
 export class Assertion {
-  private _actual: any;
-  private _messages: string[];
-  private _assertions: { (): Promise<boolean> }[];
-  private _lastArgs:any[];
+  private _rule: ValidationRule;
+  private _context: ValidationContext;
 
   constructor(actual:any) {
-      this._actual = actual;
-      this._messages = [ ];
-      this._assertions = [ ];
+      this._context = new ValidationContext(actual);
+      this._rule = new ValidationRule(this._context);
   }
 
   message(text:string) {
-    var index = this._assertions.length - 1;
-    if (this._lastArgs) {
-      for(var i=0;i<this._lastArgs.length;i++) {
-        text = text.replace(`{${i}}`, this._lastArgs[i])
-      }
-    }
-    this._messages[index] = text;
     return this;
   }
 
   custom(fn:(actual:any) => Promise<boolean>): Assertion {
-    this._assertions.push(async () => {
-      return await fn(this._actual);
-    })
+    this._rule.addValidator(new validators.CustomValidator(this._context, fn));
     return this;
   }
 
   equal(expected:any): Assertion {
-    this._lastArgs = [this._actual, expected];
-    this._assertions.push(async () => {
-      return this._actual === expected;
-    })
-    this.message("{0} should be {1}.")
+    this._rule.addValidator(new validators.EqualValidator(this._context, expected));
     return this;
   }
 
   length(min:number, max?:number): Assertion {
-    this._lastArgs = [this._actual, min, max];
-    this._assertions.push(async () => {
-      return this._actual.toString().length >= min &&
-             (max === undefined || this._actual.toString().length <= max);
-    })
-    if (max)
-      this.message("'{0}' should have between {1} and {2} characters.")
-    else
-      this.message("'{0}' should have more than {1} characters.")
+    this._rule.addValidator(new validators.LengthValidator(this._context, min, max));
     return this;
   }
 
-  async resolve(): Promise<AssertionResult> {
-    var assertionResult = new AssertionResult()
-    for(var i=0;i<this._assertions.length;i++){
-      var assertion = this._assertions[i];
-      var result = await assertion()
-      if (!result)
-        assertionResult.addMessage(this._messages[i])
-    }
-    return assertionResult;
+  async resolve(): Promise<ValidationResult> {
+    return await this._rule.validate();
   }
 }

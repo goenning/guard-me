@@ -14,7 +14,7 @@ describe("Custom Assertion:", function () {
   it("1 == 1", async function() {
     var assert = new Assertion(1)
     var result = await assert.custom(async (v) => v == 1).resolve()
-    expect(result.valid).to.be.true
+    expect(result.success).to.be.true
   })
 
   it("1 != 2 (with timeout)", async function() {
@@ -22,7 +22,7 @@ describe("Custom Assertion:", function () {
     var result = await assert.custom(v => {
       return slowCompare(v, 2)
     }).resolve()
-    expect(result.valid).to.be.false
+    expect(result.success).to.be.false
   })
 
 })

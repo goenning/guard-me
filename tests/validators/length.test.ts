@@ -5,7 +5,7 @@ describe("Length Validator", function () {
 
   var data = [
     [ 'Star Wars', 0, 20, true, `'Star Wars' >= 0 && <= 20` ],
-    [ 'Hi', 1, undefined, false, `'Hi' <= 1` , `Hi should have more than 1 characters.` ],
+    [ 'Hi', 1, undefined, false, `'Hi' <= 1` , `Hi should have more than 1 characters` ],
     [ 'Hello World', 50, undefined, true, `'Hello World' <= 50` ]
   ];
 

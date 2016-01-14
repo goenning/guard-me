@@ -14,8 +14,8 @@ export class LengthValidator extends Validator {
 
   public defaultMessageFormat():string {
     return (this.max) ?
-            "{0} should have between {1} and {2} characters." : 
-            "{0} should have more than {1} characters.";
+            "{0} should have between {1} and {2} characters" : 
+            "{0} should have more than {1} characters";
   }
 
   public args() {

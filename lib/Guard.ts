@@ -46,8 +46,11 @@ export class Guard<T> {
     var checkResult = new CheckResult()
     for(var assertion of this._assertions) {
       var assertResult = await assertion.resolve()
-      if (!assertResult.valid)
-        checkResult.addMessages(assertResult.messages)
+      if (!assertResult.success) {
+        for(var failure of assertResult.failures) {
+          checkResult.addMessage(failure.message);
+        }
+      }
     }
 
     return checkResult
