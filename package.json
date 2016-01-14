@@ -6,7 +6,7 @@
   "main": "build/lib/index.js",
   "typings": "build/lib/index.d.ts",
   "scripts": {
-    "prepublish": "ntsc",
+    "prepublish": "rm -rf ./build && ntsc",
     "test": "mocha build/tests --recursive"
   },
   "keywords": [
@@ -26,8 +26,11 @@
     "mocha": "^2.3.4",
     "ntypescript": "^1.201601110604.1"
   },
-  "license": "GPL",
+  "license": "GPL-3.0",
   "engines": {
     "node": ">= 4.0.0"
+  },
+  "dependencies": {
+    "lodash": "^4.0.0"
   }
 }

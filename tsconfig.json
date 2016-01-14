@@ -10,20 +10,30 @@
     "!build"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "build"
   ],
   "files": [
     "lib/Assertion.ts",
     "lib/ensure.ts",
     "lib/Guard.ts",
     "lib/index.ts",
+    "lib/ValidationContext.ts",
+    "lib/ValidationResult.ts",
+    "lib/ValidationRule.ts",
+    "lib/validators/EqualValidator.ts",
+    "lib/validators/LengthValidator.ts",
+    "lib/validators/Validator.ts",
     "tests/assertions/custom.test.ts",
     "tests/assertions/equal.test.ts",
     "tests/assertions/length.test.ts",
     "tests/default.test.ts",
     "tests/object.test.ts",
+    "tests/validators/equal.test.ts",
+    "tests/validators/length.test.ts",
     "typings/assertion-error/assertion-error.d.ts",
     "typings/chai/chai.d.ts",
+    "typings/lodash/lodash.d.ts",
     "typings/mocha/mocha.d.ts",
     "typings/tsd.d.ts"
   ],
