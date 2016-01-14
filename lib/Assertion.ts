@@ -9,7 +9,7 @@ export class Assertion {
   private _context: ValidationContext;
 
   constructor(property:any) {
-    this._context = new ValidationContext(property.value, property.name);
+    this._context = new ValidationContext(property.value, property.propertyName);
     this._rule = new ValidationRule(this._context);
   }
 

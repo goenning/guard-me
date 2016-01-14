@@ -15,7 +15,6 @@
   ],
   "files": [
     "lib/Assertion.ts",
-    "lib/demo.ts",
     "lib/ensure.ts",
     "lib/ExpressionProperty.ts",
     "lib/Guard.ts",
@@ -28,9 +27,6 @@
     "lib/validators/index.ts",
     "lib/validators/LengthValidator.ts",
     "lib/validators/Validator.ts",
-    "tests/assertions/custom.test.ts",
-    "tests/assertions/equal.test.ts",
-    "tests/assertions/length.test.ts",
     "tests/default.test.ts",
     "tests/object.test.ts",
     "tests/validators/custom.test.ts",

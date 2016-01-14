@@ -14,16 +14,17 @@ export class LengthValidator extends Validator {
 
   public defaultMessageFormat():string {
     return (this.max) ?
-            "{0} should have between {1} and {2} characters" : 
-            "{0} should have more than {1} characters";
+            "{PropertyName} should have between {0} and {1} characters" :
+            "{PropertyName} should have more than {0} characters";
   }
 
   public args() {
-    return [ this._context.value, this.min, this.max ];
+    return [ this.min, this.max ];
   }
 
   public async validate(): Promise<ValidationResult> {
     var ok:boolean;
+
     if (this.max === undefined)
       ok = this._context.value.toString().length <= this.min
     else

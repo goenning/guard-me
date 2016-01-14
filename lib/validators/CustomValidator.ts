@@ -15,7 +15,7 @@ export class CustomValidator extends Validator {
   }
 
   public args() {
-    return [ this._context.value ];
+    return [ ];
   }
 
   public async validate(): Promise<ValidationResult> {

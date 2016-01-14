@@ -1,17 +1,17 @@
 export class ValidationContext {
-  private _name: string;
+  private _propertyName: string;
   private _value: any;
 
-  constructor(value: any, name?:string){
+  constructor(value: any, propertyName?:string){
     this._value = value;
-    this._name = name;
+    this._propertyName = (propertyName === undefined) ? 'Value' : propertyName;
   }
 
   public get value(): any {
     return this._value;
   }
 
-  public get name(): any {
-    return this._name;
+  public get propertyName(): any {
+    return this._propertyName;
   }
 }

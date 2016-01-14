@@ -12,11 +12,11 @@ export class EqualValidator extends Validator {
   }
 
   public defaultMessageFormat():string {
-    return "{0} should equal {1}";
+    return "{PropertyName} should equal {0}";
   }
 
   public args() {
-    return [ this._context.name, this.expected ];
+    return [ this.expected ];
   }
 
   public async validate(): Promise<ValidationResult> {

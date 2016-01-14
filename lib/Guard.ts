@@ -1,5 +1,6 @@
 import {Assertion} from './Assertion';
 import {ExpressionProperty} from './ExpressionProperty';
+import * as _ from 'lodash';
 
 export interface Ensurer<T> {
   (check: (value:any) => Assertion, object:T): void;
@@ -36,13 +37,20 @@ export class Guard<T> {
   }
 
   async check(object:T): Promise<CheckResult> {
-    for(var propt in object){
-      object[propt] = new ExpressionProperty(propt, object[propt]);
+    let hijacked = false;
+    if (_.isPlainObject(object)) {
+      hijacked = true;
+      for(var propt in object){
+        object[propt] = new ExpressionProperty(object[propt], propt);
+      }
     }
 
     if (this._ensureFunc) {
-      this._ensureFunc((property:any) => {
-        var assert = new Assertion(property);
+      this._ensureFunc((value:any) => {
+        if (!hijacked)
+          value = new ExpressionProperty(value);
+
+        var assert = new Assertion(value);
         this._assertions.push(assert);
         return assert;
       }, object)
@@ -58,8 +66,10 @@ export class Guard<T> {
       }
     }
 
-    for(var propt in object){
-      object[propt] = object[propt].value;
+    if (hijacked) {
+      for(var propt in object){
+        object[propt] = object[propt].value;
+      }
     }
 
     return checkResult

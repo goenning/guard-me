@@ -31,15 +31,17 @@ export abstract class Validator {
 
   protected failure() {
     var message:string = this.messageFormat;
+    message = message.replace(`{PropertyName}`, this._context.propertyName);
+
     var args = this.args();
     if (args.length > 0) {
       for(var i=0;i<args.length;i++) {
-        
+
         var arg = args[i];
         if (_.isObject(arg))
           arg = JSON.stringify(arg);
 
-        message = message.replace(`{${i}}`, arg)
+        message = message.replace(`{${i}}`, arg);
       }
     }
 

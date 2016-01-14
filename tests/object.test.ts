@@ -7,31 +7,42 @@ interface SaveProductRequest {
   slug:string
 }
 
-describe("Object Validation:", function () {
+describe("General object validation", function () {
   var request:SaveProductRequest = {
     id: 1,
     title: 'Garmin Swim',
     slug: 'garmin-swim'
   }
 
-  it("object property validation", async function() {
+  it("should return valid and empty messages when check has succeed", async function() {
     var guard = ensure<SaveProductRequest>((check, object) => {
       check(object.title).length(1, 5)
     })
 
     var result = await guard.check(request)
 
-    expect(request.title).to.be.equal('Garmin Swim')
     expect(result.valid).to.be.false
-    expect(result.messages[0]).to.be.equal("Title shoud have between 1 and 5 characters.")
+    expect(result.messages[0]).to.be.equal("Title should have between 1 and 5 characters")
   })
 
-  it("object property with custom validation", async function() {
+  it("should not change object values after validation", async function() {
     var guard = ensure<SaveProductRequest>((check, object) => {
-      check(object).custom(async (o) => {
-        return o.title == 'Garmin Swim';
-      }).custom(async (o) => {
-        return o.slug == 'garmin-swim';
+      check(object.title).length(1, 5)
+    })
+
+    await guard.check(request)
+
+    expect(request.title).to.be.equal('Garmin Swim')
+  })
+
+  it("should validate when using multiple custom validation", async function() {
+    var guard = ensure<SaveProductRequest>((check, object) => {
+      check(object.title).custom(async (o) => {
+        return o == 'Garmin Swim';
+      })
+
+      check(object.slug).custom(async (o) => {
+        return o == 'garmin-swim';
       })
     })
 

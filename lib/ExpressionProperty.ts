@@ -1,10 +1,13 @@
+import * as _ from 'lodash';
+
 export class ExpressionProperty {
   private _propertyName:string;
   private _value:any;
 
-  constructor(propertyName:string, value:any) {
-    this._propertyName = propertyName;
+  constructor(value:any, propertyName?:string) {
     this._value = value;
+    if (propertyName !== undefined)
+      this._propertyName = _.capitalize(propertyName);
   }
 
   public get propertyName() {

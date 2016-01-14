@@ -4,13 +4,13 @@ import {expect} from 'chai';
 describe("Equal Validator", function () {
 
   var data = [
-    [ 'Star Wars', 'Star Trek', false, `Star Wars should equal Star Trek` ],
+    [ 'Star Wars', 'Star Trek', false, `Value should equal Star Trek` ],
     [ 'Star Wars', 'Star Wars', true ],
     [ 1, 1, true ],
-    [ 1, '1', false, `1 should equal 1` ],
+    [ 1, '1', false, `Value should equal 1` ],
     [ 1.2, 1.2, true ],
     [ { bar:'bar' }, { bar:'bar' }, true ],
-    [ { bar:'bar' }, { foo:'bar' }, false, `{"bar":"bar"} should equal {"foo":"bar"}` ]
+    [ { bar:'bar' }, { foo:'bar' }, false, `Value should equal {"foo":"bar"}` ]
   ];
 
   var testCase = function (item) {
