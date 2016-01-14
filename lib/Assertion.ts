@@ -13,7 +13,8 @@ export class Assertion {
     this._rule = new ValidationRule(this._context);
   }
 
-  message(text:string) {
+  message(messageFormat:string) {
+    this._rule.setMessageFormat(messageFormat)
     return this;
   }
 
