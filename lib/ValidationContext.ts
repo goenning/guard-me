@@ -1,4 +1,4 @@
-import {ExpressionProperty} from './ExpressionProperty';
+import {ExpressionProperty} from "./ExpressionProperty";
 
 export class ValidationContext {
   private _property: ExpressionProperty;

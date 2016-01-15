@@ -1,7 +1,7 @@
-import {Validator} from './Validator';
-import {ValidationResult} from '../ValidationResult';
-import {ValidationContext} from '../ValidationContext'
-import * as _ from 'lodash';
+import {Validator} from "./Validator";
+import {ValidationResult} from "../ValidationResult";
+import {ValidationContext} from "../ValidationContext"
+import * as _ from "lodash";
 
 export class EqualValidator extends Validator {
   private expected: any;
@@ -20,7 +20,7 @@ export class EqualValidator extends Validator {
   }
 
   public async validate(): Promise<ValidationResult> {
-    var equal = _.isEqual(this._context.value, this.expected);
+    let equal = _.isEqual(this._context.value, this.expected);
     if (!equal)
       return this.failure();
 

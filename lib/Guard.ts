@@ -1,6 +1,6 @@
-import {Assertion} from './Assertion';
-import {ExpressionProperty} from './ExpressionProperty';
-import * as _ from 'lodash';
+import {Assertion} from "./Assertion";
+import {ExpressionProperty} from "./ExpressionProperty";
+import * as _ from "lodash";
 
 export interface Ensurer<T> {
   (check: (value: any, name?: string) => Assertion, object: T): void;
@@ -29,7 +29,7 @@ export class CheckResult {
 
   addMessages(property: string, messages: string[]) {
     this.valid = false
-    for (var message of messages) {
+    for (let message of messages) {
       this.errors.push({
         property,
         messages: [message]
@@ -52,7 +52,7 @@ export class Guard<T> {
 
     if (_.isPlainObject(object)) {
       hijacked = true;
-      for (var propt in object) {
+      for (let propt in object) {
         object[propt] = new ExpressionProperty(propt, object[propt]);
       }
     }
@@ -61,30 +61,30 @@ export class Guard<T> {
       this._ensureFunc((property: any, name?: string) => {
 
         if (!hijacked)
-          property = new ExpressionProperty('value', property);
+          property = new ExpressionProperty("value", property);
 
         if (name !== undefined)
           property = new ExpressionProperty(property.name, property.value, name);
 
-        var assert = new Assertion(property);
+        let assert = new Assertion(property);
         this._assertions.push(assert);
         return assert;
 
       }, object)
     }
 
-    var checkResult = new CheckResult()
-    for (var assertion of this._assertions) {
-      var assertResult = await assertion.resolve()
+    let checkResult = new CheckResult()
+    for (let assertion of this._assertions) {
+      let assertResult = await assertion.resolve()
       if (!assertResult.success) {
-        for (var failure of assertResult.failures) {
+        for (let failure of assertResult.failures) {
           checkResult.addMessage(failure.property, failure.message);
         }
       }
     }
 
     if (hijacked) {
-      for (var propt in object) {
+      for (let propt in object) {
         object[propt] = object[propt].value;
       }
     }

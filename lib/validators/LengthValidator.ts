@@ -1,7 +1,7 @@
-import {Validator} from './Validator';
-import {ValidationResult} from '../ValidationResult';
-import {ValidationContext} from '../ValidationContext'
-import * as _ from 'lodash';
+import {Validator} from "./Validator";
+import {ValidationResult} from "../ValidationResult";
+import {ValidationContext} from "../ValidationContext"
+import * as _ from "lodash";
 
 export class LengthValidator extends Validator {
   private min: number;
@@ -32,7 +32,7 @@ export class LengthValidator extends Validator {
   }
 
   public async validate(): Promise<ValidationResult> {
-    var ok: boolean = true;
+    let ok: boolean = true;
 
     if (_.isArray(this._context.value)) {
       ok = this._context.value.length >= this.min &&

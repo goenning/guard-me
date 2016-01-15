@@ -1,6 +1,6 @@
-import {ValidationResult, ValidationFailure} from '../ValidationResult'
-import {ValidationContext} from '../ValidationContext'
-import * as _ from 'lodash';
+import {ValidationResult, ValidationFailure} from "../ValidationResult"
+import {ValidationContext} from "../ValidationContext"
+import * as _ from "lodash";
 
 export abstract class Validator {
   private _messageFormat: string;
@@ -11,7 +11,7 @@ export abstract class Validator {
   }
 
   public get messageFormat(): string {
-    if (this._messageFormat == undefined)
+    if (this._messageFormat === undefined)
       return this.defaultMessageFormat();
     return this._messageFormat;
   }
@@ -30,14 +30,14 @@ export abstract class Validator {
   }
 
   protected failure() {
-    var message: string = this.messageFormat;
+    let message: string = this.messageFormat;
     message = message.replace(`{PropertyName}`, _.capitalize(this._context.property.displayName));
 
-    var args = this.args();
+    let args = this.args();
     if (args.length > 0) {
-      for (var i = 0; i < args.length; i++) {
+      for (let i = 0; i < args.length; i++) {
 
-        var arg = args[i];
+        let arg = args[i];
         if (_.isObject(arg))
           arg = JSON.stringify(arg);
 
@@ -45,7 +45,7 @@ export abstract class Validator {
       }
     }
 
-    var result = new ValidationResult();
+    let result = new ValidationResult();
     result.addFailure(new ValidationFailure(this._context.property.name, message));
     return result;
   }

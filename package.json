@@ -7,7 +7,9 @@
   "typings": "build/lib/index.d.ts",
   "scripts": {
     "prepublish": "rm -rf ./build && ntsc",
-    "rebuild": "rm -rf ./build && ntsc",
+    "pretest" : "npm run lint",
+    "build" : "rm -rf ./build && ntsc",
+    "lint": "tslint -c tslint.json lib/**/*.ts",
     "test": "mocha build/tests --recursive"
   },
   "keywords": [
@@ -25,7 +27,9 @@
   "devDependencies": {
     "chai": "^3.4.1",
     "mocha": "^2.3.4",
-    "ntypescript": "^1.201601110604.1"
+    "ntypescript": "^1.201601110604.1",
+    "tslint": "^3.2.1",
+    "typescript": "^1.7.5"
   },
   "license": "GPL-3.0",
   "engines": {

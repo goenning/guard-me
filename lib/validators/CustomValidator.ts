@@ -1,6 +1,6 @@
-import {Validator} from './Validator';
-import {ValidationResult} from '../ValidationResult';
-import {ValidationContext} from '../ValidationContext'
+import {Validator} from "./Validator";
+import {ValidationResult} from "../ValidationResult";
+import {ValidationContext} from "../ValidationContext"
 
 export class CustomValidator extends Validator {
   private custom: (value: any) => Promise<boolean>;
@@ -19,7 +19,7 @@ export class CustomValidator extends Validator {
   }
 
   public async validate(): Promise<ValidationResult> {
-    var ok = await this.custom(this._context.value);
+    let ok = await this.custom(this._context.value);
     if (!ok)
       return this.failure();
 

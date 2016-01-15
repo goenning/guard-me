@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import * as _ from "lodash";
 
 export class ExpressionProperty {
   private _name: string;
@@ -7,7 +7,7 @@ export class ExpressionProperty {
 
   constructor(name: string, value: any, displayName?: string) {
     this._value = value;
-    this._name = (name === undefined) ? 'value' : name;
+    this._name = (name === undefined) ? "value" : name;
     this._displayName = displayName;
   }
 

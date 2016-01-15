@@ -39,7 +39,7 @@ export class ValidationResult {
   }
 
   public addFailures(failures: ValidationFailure[]) {
-    for (var failure of failures) {
+    for (let failure of failures) {
       this.addFailure(failure);
     }
   }

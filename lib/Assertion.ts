@@ -1,8 +1,8 @@
-import {ValidationContext} from './ValidationContext';
-import {ValidationRule} from './ValidationRule';
-import {ValidationResult} from './ValidationResult';
-import {ExpressionProperty} from './ExpressionProperty';
-import * as validators from './validators';
+import {ValidationContext} from "./ValidationContext";
+import {ValidationRule} from "./ValidationRule";
+import {ValidationResult} from "./ValidationResult";
+import {ExpressionProperty} from "./ExpressionProperty";
+import * as validators from "./validators";
 
 export class Assertion {
   private _rule: ValidationRule;
