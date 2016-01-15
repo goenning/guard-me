@@ -11,8 +11,11 @@ describe("Length Validator", function() {
 
   var data = [
     [`'Star Wars' >= 0 && <= 20`, 'Star Wars', 0, 20, true],
+    [`'Hello World' <= 5`, 'Hello World', 0, 5, false, 'Value should have no more than 5 characters'],
     [`'Hello World' >= 40 && <= 50`, 'Hello World', 40, 50, false, 'Value should have between 40 and 50 characters'],
-    [`[1,2,3] >= 0 && <= 10 `, [1, 2, 3], 0, 2, false, 'Value should have no more than 2 elements']
+    [`[1,2,3] >= 0 && <= 2 `, [1, 2, 3], 0, 2, false, 'Value should have no more than 2 elements'],
+    [`[1,2,3] >= 0 && <= 2 `, [1, 2, 3], undefined, 2, false, 'Value should have no more than 2 elements'],
+    [`[1,2,3] >= 1 && <= 2 `, [1, 2, 3], 1, 2, false, 'Value should have between 1 and 2 elements']
   ];
 
   var testCase = async function(item) {

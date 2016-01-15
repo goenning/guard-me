@@ -26,16 +26,6 @@ export class CheckResult {
       messages: [message]
     })
   }
-
-  addMessages(property: string, messages: string[]) {
-    this.valid = false
-    for (let message of messages) {
-      this.errors.push({
-        property,
-        messages: [message]
-      })
-    }
-  }
 }
 
 export class Guard<T> {
