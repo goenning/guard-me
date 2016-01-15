@@ -15,12 +15,6 @@ export class ValidationRule {
     this._validators.push(validator);
   }
 
-  public setMessageFormat(message:string) {
-    if (this._validators.length > 0) {
-      this._validators[this._validators.length-1].setMessageFormat(message);
-    }
-  }
-
   public async validate():Promise<ValidationResult> {
     var ruleResult = new ValidationResult();
     for(var validator of this._validators) {

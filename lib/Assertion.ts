@@ -7,33 +7,39 @@ import * as validators from './validators';
 export class Assertion {
   private _rule: ValidationRule;
   private _context: ValidationContext;
+  private _lastValidator: validators.Validator;
 
-  constructor(property:any) {
+  public constructor(property:any) {
     this._context = new ValidationContext(property.value, property.propertyName);
     this._rule = new ValidationRule(this._context);
   }
 
-  message(messageFormat:string) {
-    this._rule.setMessageFormat(messageFormat)
+  public message(messageFormat:string) {
+    if (this._lastValidator !== undefined) {
+      this._lastValidator.setMessageFormat(messageFormat)
+    }
     return this;
   }
 
-  custom(fn:(actual:any) => Promise<boolean>): Assertion {
-    this._rule.addValidator(new validators.CustomValidator(this._context, fn));
-    return this;
+  public custom(fn:(actual:any) => Promise<boolean>): Assertion {
+    return this.addValidator(new validators.CustomValidator(this._context, fn));
   }
 
-  equal(expected:any): Assertion {
-    this._rule.addValidator(new validators.EqualValidator(this._context, expected));
-    return this;
+  public equal(expected:any): Assertion {
+    return this.addValidator(new validators.EqualValidator(this._context, expected));
   }
 
-  length(min:number, max:number): Assertion {
-    this._rule.addValidator(new validators.LengthValidator(this._context, min, max));
-    return this;
+  public length(min:number, max:number): Assertion {
+    return this.addValidator(new validators.LengthValidator(this._context, min, max));
   }
 
-  async resolve(): Promise<ValidationResult> {
+  public async resolve(): Promise<ValidationResult> {
     return await this._rule.validate();
+  }
+
+  private addValidator(validator:validators.Validator) {
+    this._lastValidator = validator;
+    this._rule.addValidator(validator);
+    return this;
   }
 }
