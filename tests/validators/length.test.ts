@@ -1,41 +1,36 @@
-import {
-  ValidationRule,
-  ValidationContext,
-  ExpressionProperty
-} from '../../lib';
-import {LengthValidator} from '../../lib/validators/LengthValidator';
-
-import {expect} from 'chai';
+import {ValidationContext} from '../../lib'
+import {LengthValidator} from '../../lib/validators/LengthValidator'
+import {fail, ok} from './testcase'
 
 describe("Length Validator", function() {
 
-  var data = [
-    [`'Star Wars' >= 0 && <= 20`, 'Star Wars', 0, 20, true],
-    [`'Hello World' <= 5`, 'Hello World', 0, 5, false, 'Value should have no more than 5 characters'],
-    [`'Hello World' >= 40 && <= 50`, 'Hello World', 40, 50, false, 'Value should have between 40 and 50 characters'],
-    [`[1,2,3] >= 0 && <= 2 `, [1, 2, 3], 0, 2, false, 'Value should have no more than 2 elements'],
-    [`[1,2,3] >= 0 && <= 2 `, [1, 2, 3], undefined, 2, false, 'Value should have no more than 2 elements'],
-    [`[1,2,3] >= 1 && <= 2 `, [1, 2, 3], 1, 2, false, 'Value should have between 1 and 2 elements']
-  ];
-
-  var testCase = async function(item) {
-    var property = new ExpressionProperty('value', item[1])
-    var context = new ValidationContext(property);
-    var rule = new ValidationRule(context);
-    rule.addValidator(new LengthValidator(context, item[2], item[3]));
-    var result = await rule.validate();
-    expect(result.success).to.be.equal(item[4]);
-
-    if (item[4] === false) {
-      expect(result.failures.length).to.be.equal(1);
-      expect(result.failures[0].message).to.be.equal(item[5]);
+  var length = (min: number, max: number) => {
+    return (context: ValidationContext) => {
+      return new LengthValidator(context, min, max)
     }
-  };
+  }
 
-  data.forEach(function(item: any[]) {
-    it(item[0], async () => {
-      await testCase(item)
-    });
-  });
+  ok(`'Star Wars' >= 0 && <= 20`, 'Star Wars', length(0, 20))
+  ok(`['A', 'B', 'C'] == 3`, ['A', 'B', 'C'], length(3, 3))
+
+  fail(`'Hello World' <= 5`, 'Hello World', length(0, 5), [
+    { property: 'value', message: 'Value should have no more than 5 characters' }
+  ])
+
+  fail(`'Hello World' >= 40 && <= 50`, 'Hello World', length(40, 50), [
+    { property: 'value', message: 'Value should have between 40 and 50 characters' }
+  ])
+
+  fail(`[1, 2, 3] >= 0 && <= 2`, [1, 2, 3], length(0, 2), [
+    { property: 'value', message: 'Value should have no more than 2 elements' }
+  ])
+
+  fail(`[1, 2, 3] >= 0 && <= 2`, [1, 2, 3], length(undefined, 2), [
+    { property: 'value', message: 'Value should have no more than 2 elements' }
+  ])
+
+  fail(`[1, 2, 3] >= 1 && <= 2`, [1, 2, 3], length(1, 2), [
+    { property: 'value', message: 'Value should have between 1 and 2 elements' }
+  ])
 
 })

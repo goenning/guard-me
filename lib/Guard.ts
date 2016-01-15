@@ -7,11 +7,11 @@ export interface Ensurer<T> {
 }
 
 export function ensure<T>(fn?: Ensurer<T>): Guard<T> {
-  return new Guard<T>(fn);
+  return new Guard<T>(fn)
 }
 
 export class CheckResult {
-  public valid: boolean;
+  public valid: boolean
   public errors: { property: string, messages: string[] }[]
 
   constructor() {

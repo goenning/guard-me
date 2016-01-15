@@ -1,12 +1,6 @@
-import {
-  ValidationRule,
-  ValidationContext,
-  ExpressionProperty
-} from '../../lib';
-
-import {CustomValidator} from '../../lib/validators/CustomValidator';
-
-import {expect} from 'chai';
+import {ValidationContext} from '../../lib'
+import {CustomValidator, CustomValidationFunction} from '../../lib/validators/CustomValidator'
+import {fail, ok} from './testcase'
 
 describe("Custom Validator", function() {
 
@@ -25,26 +19,15 @@ describe("Custom Validator", function() {
     })
   }
 
-  var data = [
-    [`Star Wars is not a greeting`, 'Star Wars', false, isGreeting, ],
-    [`Hi is a greeting`, 'Hi', true, isGreeting, ], ,
-    [`Boom will throw an error`, 'Boom', false, throwError, ],
-    [`Hello will not throw an error`, 'Boom', false, throwError, ],
-  ];
+  var custom = (fn: CustomValidationFunction) => {
+    return (context: ValidationContext) => {
+      return new CustomValidator(context, fn)
+    }
+  }
 
-  var testCase = async function(item) {
-    var property = new ExpressionProperty('value', item[1])
-    var context = new ValidationContext(property);
-    var rule = new ValidationRule(context);
-    rule.addValidator(new CustomValidator(context, item[3]));
-    var result = await rule.validate();
-    expect(result.success).to.be.equal(item[2]);
-  };
-
-  data.forEach(function(item: any[]) {
-    it(item[0], async () => {
-      await testCase(item)
-    });
-  });
+  ok(`Hi is a greeting`, 'Hi', custom(isGreeting))
+  ok(`Hello will not throw an error`, 'Hello', custom(throwError))
+  fail(`Star Wars is not a greeting`, 'Star Wars', custom(isGreeting), [])
+  fail(`Boom will throw an error`, 'Boom', custom(throwError), [])
 
 })

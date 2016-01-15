@@ -4,7 +4,9 @@
     "module": "commonjs",
     "declaration": true,
     "outDir": "build",
-    "noEmitHelpers": true
+    "noEmitHelpers": true,
+    "noImplicitAny": false,
+    "removeComments": false
   },
   "filesGlob": [
     "**/*.ts",
@@ -32,6 +34,7 @@
     "tests/validators/custom.test.ts",
     "tests/validators/equal.test.ts",
     "tests/validators/length.test.ts",
+    "tests/validators/testcase.ts",
     "typings/assertion-error/assertion-error.d.ts",
     "typings/chai/chai.d.ts",
     "typings/lodash/lodash.d.ts",
