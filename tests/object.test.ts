@@ -40,6 +40,18 @@ describe("General object validation", function () {
     })
   })
 
+  it("should be able to name the property for better message text", async function() {
+    var guard = ensure<SaveProductRequest>((check, object) => {
+      check(object.title, "Name").length(1, 5)
+    })
+
+    var result = await guard.check(request)
+
+    expect(result.valid).to.be.false
+    expect(result.errors[0].property).to.be.equal("title")
+    expect(result.errors[0].messages[0]).to.be.equal("Name should have between 1 and 5 characters")
+  })
+
   it("should validate when using multiple custom validation", async function() {
     var guard = ensure<SaveProductRequest>((check, object) => {
       check(object.title).custom(async (o) => {
