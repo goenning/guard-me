@@ -31,16 +31,12 @@ export class LengthValidator extends Validator {
     return [this.min, this.max];
   }
 
-  public async validate(): Promise<ValidationResult> {
-    let ok: boolean = true;
+  public validate(): ValidationResult {
+    let length = (_.isArray(this._context.value))
+      ? this._context.value.length
+      : this._context.value.length;
 
-    if (_.isArray(this._context.value)) {
-      ok = this._context.value.length >= this.min &&
-        this._context.value.length <= this.max;
-    } else {
-      ok = this._context.value.toString().length >= this.min &&
-        this._context.value.toString().length <= this.max;
-    }
+    let ok = length >= this.min && length <= this.max;
 
     if (!ok)
       return this.failure();

@@ -3,7 +3,8 @@
     "target": "ES6",
     "module": "commonjs",
     "declaration": true,
-    "outDir": "build"
+    "outDir": "build",
+    "noEmitHelpers": true
   },
   "filesGlob": [
     "**/*.ts",
@@ -35,6 +36,7 @@
     "typings/chai/chai.d.ts",
     "typings/lodash/lodash.d.ts",
     "typings/mocha/mocha.d.ts",
+    "typings/node/node.d.ts",
     "typings/tsd.d.ts"
   ],
   "formatCodeOptions": {

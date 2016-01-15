@@ -10,17 +10,26 @@ import {expect} from 'chai';
 
 describe("Custom Validator", function() {
 
-  var isGreeting = function(text: any): Promise<boolean> {
+  var isGreeting = function(text: any): boolean {
+    return text === 'Hi' || text === 'Hello';
+  }
+
+  var throwError = function(text: any): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       setTimeout(() => {
-        resolve(text === 'Hi' || text === 'Hello');
+        if (text === "Boom")
+          reject(new Error());
+        else
+          resolve(true);
       }, 50)
     })
   }
 
   var data = [
     [`Star Wars is not a greeting`, 'Star Wars', false, isGreeting, ],
-    [`Hi is a greeting`, 'Hi', true, isGreeting, ],
+    [`Hi is a greeting`, 'Hi', true, isGreeting, ], ,
+    [`Boom will throw an error`, 'Boom', false, throwError, ],
+    [`Hello will not throw an error`, 'Boom', false, throwError, ],
   ];
 
   var testCase = async function(item) {

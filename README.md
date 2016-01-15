@@ -8,16 +8,16 @@
 `guard-me` is next-generation validation library for node.js.
 
 Features:
-- Written in TypeScript, `.d.ts` files are bundled within the package
+- Written in TypeScript, so `.d.ts` files are bundled within the package.
 
 Built-in validations:
 - equal
 - length (min, max)
 
-Do anything you want with `custom` validation! Supports Sync and Async code using Promises
+Do anything you want with `custom` validation! Supports Sync and Async validations using Promises.
 
 ####Javascript example
-```
+```javascript
 var ensure = require('guard-me').ensure
 
 var request = {
@@ -27,7 +27,7 @@ var request = {
 
 var guard = ensure((check, object) => {
   check(object.title).length(1, 20).custom((r) => {
-    return Promise.resolve(r != 'Garmin Swim');
+    return r != 'Garmin Swim';
   })
 })
 
@@ -37,7 +37,7 @@ await guard.check(request).then((result) => {
 ```
 
 ####TypeScript example
-```
+```ts
 import {ensure} from 'guard-me'
 
 interface SaveProductRequest {

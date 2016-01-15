@@ -23,7 +23,7 @@ export abstract class Validator {
 
   public abstract defaultMessageFormat(): string;
   public abstract args(): any[];
-  public abstract validate(context: ValidationContext): Promise<ValidationResult>;
+  public abstract validate(context: ValidationContext): Promise<ValidationResult> | ValidationResult;
 
   protected success() {
     return new ValidationResult();

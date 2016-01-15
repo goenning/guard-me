@@ -9,6 +9,14 @@ describe("Basic validation", function() {
     expect(result.valid).to.be.true
   })
 
+  it("should not do anything when setting custom message without validator", async function() {
+    var guard = ensure<number>((check, object) => {
+      check(object).message("never used")
+    })
+    var result = await guard.check(5)
+    expect(result.valid).to.be.true
+  })
+
   it("should validate multiple assertions", async function() {
     var guard = ensure<string>((check, object) => {
       check(object).equal("T-Shirt").length(1, 5)

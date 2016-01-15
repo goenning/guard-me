@@ -2,10 +2,14 @@ import {Validator} from "./Validator";
 import {ValidationResult} from "../ValidationResult";
 import {ValidationContext} from "../ValidationContext"
 
-export class CustomValidator extends Validator {
-  private custom: (value: any) => Promise<boolean>;
+export interface CustomValidationFunction {
+  (value: any): Promise<boolean> | boolean;
+}
 
-  constructor(context: ValidationContext, custom: (value: any) => Promise<boolean>) {
+export class CustomValidator extends Validator {
+  private custom: CustomValidationFunction;
+
+  constructor(context: ValidationContext, custom: CustomValidationFunction) {
     super(context);
     this.custom = custom;
   }
@@ -19,9 +23,13 @@ export class CustomValidator extends Validator {
   }
 
   public async validate(): Promise<ValidationResult> {
-    let ok = await this.custom(this._context.value);
-    if (!ok)
+    try {
+      let ok = await this.custom(this._context.value);
+      if (!ok)
+        return this.failure();
+    } catch (e) {
       return this.failure();
+    }
 
     return this.success();
   }

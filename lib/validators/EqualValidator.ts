@@ -19,7 +19,7 @@ export class EqualValidator extends Validator {
     return [this.expected];
   }
 
-  public async validate(): Promise<ValidationResult> {
+  public validate(): ValidationResult {
     let equal = _.isEqual(this._context.value, this.expected);
     if (!equal)
       return this.failure();
