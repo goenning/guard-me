@@ -54,11 +54,11 @@ describe("General object validation", function() {
 
   it("should validate when using multiple custom validation", async function() {
     var guard = ensure<SaveProductRequest>((check, object) => {
-      check(object.title).custom(async (o) => {
+      check(object.title).must(async (o) => {
         return o == 'Garmin Swim';
       })
 
-      check(object.slug).custom(async (o) => {
+      check(object.slug).must(async (o) => {
         return o == 'garmin-swim';
       })
     })

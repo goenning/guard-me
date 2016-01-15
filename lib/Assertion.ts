@@ -21,7 +21,7 @@ export class Assertion {
     return this
   }
 
-  public custom(fn: (actual: any) => Promise<boolean>): Assertion {
+  public must(fn: (actual: any) => Promise<boolean>): Assertion {
     return this.addValidator(new validators.CustomValidator(this._context, fn))
   }
 
