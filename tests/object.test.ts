@@ -1,5 +1,5 @@
-import {ensure} from '../lib'
-import {expect} from 'chai'
+import {ensure} from "../lib"
+import {expect} from "chai"
 
 interface SaveProductRequest {
   id: number,
@@ -10,8 +10,8 @@ interface SaveProductRequest {
 describe("General object validation", function() {
   var request: SaveProductRequest = {
     id: 1,
-    title: 'Garmin Swim',
-    slug: 'garmin-swim'
+    title: "Garmin Swim",
+    slug: "garmin-swim"
   }
 
   it("should return valid and empty messages when check has succeed", async function() {
@@ -35,8 +35,8 @@ describe("General object validation", function() {
 
     expect(request).to.deep.equal({
       id: 1,
-      title: 'Garmin Swim',
-      slug: 'garmin-swim'
+      title: "Garmin Swim",
+      slug: "garmin-swim"
     })
   })
 
@@ -55,11 +55,11 @@ describe("General object validation", function() {
   it("should validate when using multiple custom validation", async function() {
     var guard = ensure<SaveProductRequest>((check, object) => {
       check(object.title).must(async (o) => {
-        return o == 'Garmin Swim';
+        return o == "Garmin Swim";
       })
 
       check(object.slug).must(async (o) => {
-        return o == 'garmin-swim';
+        return o == "garmin-swim";
       })
     })
 

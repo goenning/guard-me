@@ -29,6 +29,10 @@ export class Assertion {
     return this.addValidator(new validators.EqualValidator(this._context, expected))
   }
 
+  public notEqual(expected: any): Assertion {
+    return this.addValidator(new validators.NotEqualValidator(this._context, expected))
+  }
+
   public required(): Assertion {
     return this.addValidator(new validators.RequiredValidator(this._context))
   }

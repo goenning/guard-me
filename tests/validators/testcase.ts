@@ -2,10 +2,10 @@ import {
   ValidationRule,
   ValidationContext,
   ExpressionProperty
-} from '../../lib';
+} from "../../lib";
 
-import {Validator} from '../../lib/validators/Validator';
-import {expect} from 'chai';
+import {Validator} from "../../lib/validators/Validator";
+import {expect} from "chai";
 
 export interface TestCaseItem {
   value: any,
@@ -56,11 +56,11 @@ export function fail(
 }
 
 export async function testCase(item: TestCaseItem) {
-  var property = new ExpressionProperty('value', item.value)
-  var context = new ValidationContext(property);
-  var rule = new ValidationRule(context);
+  let property = new ExpressionProperty("value", item.value)
+  let context = new ValidationContext(property);
+  let rule = new ValidationRule(context);
   rule.addValidator(item.createValidator(context));
-  var result = await rule.validate();
+  let result = await rule.validate();
 
   expect(result.success).to.be.equal(item.success);
 

@@ -1,11 +1,25 @@
-import {ensure} from '../lib'
-import {expect} from 'chai'
+import {ensure} from "../lib"
+import {expect} from "chai"
 
 describe("Basic validation", function() {
 
   it("should init without validation", async function() {
     var guard = ensure<number>()
     var result = await guard.check(5)
+    expect(result.valid).to.be.true
+  })
+
+  it("should validate all validators", async function() {
+    var guard = ensure<any>((check, object) => {
+      check(object.title).required().equal("Star Wars").notEqual("Star Trek")
+      check(object.slug).required().notEqual("star-trek")
+    })
+
+    var result = await guard.check({
+      title: "Star Wars",
+      slug: "star-wars"
+    })
+
     expect(result.valid).to.be.true
   })
 
@@ -37,9 +51,9 @@ describe("Basic validation", function() {
     var result = await guard.check("Star Wars")
     expect(result.valid).to.be.false
     expect(result.errors[0].property).to.be.equal("value")
-    expect(result.errors[0].messages[0]).to.be.equal('Value is not T-Shirt')
+    expect(result.errors[0].messages[0]).to.be.equal("Value is not T-Shirt")
     expect(result.errors[1].property).to.be.equal("value")
-    expect(result.errors[1].messages[0]).to.be.equal('Value length should be between 1 and 5')
+    expect(result.errors[1].messages[0]).to.be.equal("Value length should be between 1 and 5")
   })
 
 })
