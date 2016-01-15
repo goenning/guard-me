@@ -27,7 +27,7 @@ describe("Custom Validator", function() {
 
   ok(`Hi is a greeting`, 'Hi', custom(isGreeting))
   ok(`Hello will not throw an error`, 'Hello', custom(throwError))
-  fail(`Star Wars is not a greeting`, 'Star Wars', custom(isGreeting), [])
-  fail(`Boom will throw an error`, 'Boom', custom(throwError), [])
+  fail(`Star Wars is not a greeting`, 'Star Wars', custom(isGreeting))
+  fail(`Boom will throw an error`, 'Boom', custom(throwError))
 
 })

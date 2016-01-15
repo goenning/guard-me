@@ -38,7 +38,7 @@ export function fail(
   testName: string,
   value: any,
   createValidator: (context: ValidationContext) => Validator,
-  errors: {
+  errors?: {
     property: string,
     message: string
   }[]) {
@@ -64,7 +64,7 @@ export async function testCase(item: TestCaseItem) {
 
   expect(result.success).to.be.equal(item.success);
 
-  if (item.success === false && item.errors.length > 0) {
+  if (item.success === false && item.errors !== undefined) {
     expect(result.failures.length).to.be.equal(item.errors.length);
     for (let error of item.errors) {
       expect(result.failures[0].property).to.be.equal(error.property);

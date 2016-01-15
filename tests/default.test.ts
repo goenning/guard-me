@@ -19,7 +19,7 @@ describe("Basic validation", function() {
 
   it("should validate multiple assertions", async function() {
     var guard = ensure<string>((check, object) => {
-      check(object).equal("T-Shirt").length(1, 5)
+      check(object).equal("T-Shirt").length(1, 5).required()
     })
 
     var object = "Star Wars"

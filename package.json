@@ -15,7 +15,10 @@
     "posttest": "npm run lint && npm run check-coverage"
   },
   "keywords": [
-    "validation"
+    "validation",
+    "validator",
+    "validate",
+    "assert"
   ],
   "homepage": "http://github.com/goenning/guard-me",
   "repository": {
