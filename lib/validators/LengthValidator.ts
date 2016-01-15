@@ -4,42 +4,42 @@ import {ValidationContext} from '../ValidationContext'
 import * as _ from 'lodash';
 
 export class LengthValidator extends Validator {
-  private min:number;
-  private max:number;
-  private noMin:boolean;
+  private min: number;
+  private max: number;
+  private noMin: boolean;
 
-  constructor(context:ValidationContext, min:number, max:number) {
+  constructor(context: ValidationContext, min: number, max: number) {
     super(context);
     this.min = (min === undefined ? 0 : min);
     this.max = max;
     this.noMin = (this.min === 0);
   }
 
-  public defaultMessageFormat():string {
+  public defaultMessageFormat(): string {
     if (_.isArray(this._context.value)) {
       return (this.noMin)
-            ? "{PropertyName} should have no more than {1} elements"
-            : "{PropertyName} should have between {0} and {1} elements";
+        ? "{PropertyName} should have no more than {1} elements"
+        : "{PropertyName} should have between {0} and {1} elements";
     } else {
       return (this.noMin)
-            ? "{PropertyName} should have no more than {1} characters"
-            : "{PropertyName} should have between {0} and {1} characters";
+        ? "{PropertyName} should have no more than {1} characters"
+        : "{PropertyName} should have between {0} and {1} characters";
     }
   }
 
   public args() {
-    return [ this.min, this.max ];
+    return [this.min, this.max];
   }
 
   public async validate(): Promise<ValidationResult> {
-    var ok:boolean = true;
-    
+    var ok: boolean = true;
+
     if (_.isArray(this._context.value)) {
       ok = this._context.value.length >= this.min &&
-           this._context.value.length <= this.max;
+        this._context.value.length <= this.max;
     } else {
       ok = this._context.value.toString().length >= this.min &&
-           this._context.value.toString().length <= this.max;
+        this._context.value.toString().length <= this.max;
     }
 
     if (!ok)

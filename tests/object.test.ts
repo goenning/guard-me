@@ -2,13 +2,13 @@ import {ensure} from '../lib'
 import {expect} from 'chai'
 
 interface SaveProductRequest {
-  id:number,
-  title:string,
-  slug:string
+  id: number,
+  title: string,
+  slug: string
 }
 
-describe("General object validation", function () {
-  var request:SaveProductRequest = {
+describe("General object validation", function() {
+  var request: SaveProductRequest = {
     id: 1,
     title: 'Garmin Swim',
     slug: 'garmin-swim'

@@ -3,39 +3,39 @@ import {ValidationContext} from '../ValidationContext'
 import * as _ from 'lodash';
 
 export abstract class Validator {
-  private _messageFormat:string;
-  protected _context:ValidationContext;
+  private _messageFormat: string;
+  protected _context: ValidationContext;
 
-  constructor(context:ValidationContext) {
+  constructor(context: ValidationContext) {
     this._context = context;
   }
 
-  public get messageFormat():string {
+  public get messageFormat(): string {
     if (this._messageFormat == undefined)
       return this.defaultMessageFormat();
     return this._messageFormat;
   }
 
-  public setMessageFormat(format:string):Validator {
+  public setMessageFormat(format: string): Validator {
     this._messageFormat = format;
     return this;
   }
 
-  public abstract defaultMessageFormat():string;
-  public abstract args():any[];
-  public abstract validate(context:ValidationContext): Promise<ValidationResult>;
+  public abstract defaultMessageFormat(): string;
+  public abstract args(): any[];
+  public abstract validate(context: ValidationContext): Promise<ValidationResult>;
 
   protected success() {
     return new ValidationResult();
   }
 
   protected failure() {
-    var message:string = this.messageFormat;
-    message = message.replace(`{PropertyName}`, _.capitalize(this._context.propertyName));
+    var message: string = this.messageFormat;
+    message = message.replace(`{PropertyName}`, _.capitalize(this._context.property.displayName));
 
     var args = this.args();
     if (args.length > 0) {
-      for(var i=0;i<args.length;i++) {
+      for (var i = 0; i < args.length; i++) {
 
         var arg = args[i];
         if (_.isObject(arg))
@@ -46,7 +46,7 @@ export abstract class Validator {
     }
 
     var result = new ValidationResult();
-    result.addFailure(new ValidationFailure(this._context.propertyName, message));
+    result.addFailure(new ValidationFailure(this._context.property.name, message));
     return result;
   }
 }

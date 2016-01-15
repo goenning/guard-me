@@ -9,27 +9,27 @@ export class Assertion {
   private _context: ValidationContext;
   private _lastValidator: validators.Validator;
 
-  public constructor(property:any) {
-    this._context = new ValidationContext(property.value, property.propertyName);
+  public constructor(property: ExpressionProperty) {
+    this._context = new ValidationContext(property);
     this._rule = new ValidationRule(this._context);
   }
 
-  public message(messageFormat:string) {
+  public message(messageFormat: string) {
     if (this._lastValidator !== undefined) {
       this._lastValidator.setMessageFormat(messageFormat)
     }
     return this;
   }
 
-  public custom(fn:(actual:any) => Promise<boolean>): Assertion {
+  public custom(fn: (actual: any) => Promise<boolean>): Assertion {
     return this.addValidator(new validators.CustomValidator(this._context, fn));
   }
 
-  public equal(expected:any): Assertion {
+  public equal(expected: any): Assertion {
     return this.addValidator(new validators.EqualValidator(this._context, expected));
   }
 
-  public length(min:number, max:number): Assertion {
+  public length(min: number, max: number): Assertion {
     return this.addValidator(new validators.LengthValidator(this._context, min, max));
   }
 
@@ -37,7 +37,7 @@ export class Assertion {
     return await this._rule.validate();
   }
 
-  private addValidator(validator:validators.Validator) {
+  private addValidator(validator: validators.Validator) {
     this._lastValidator = validator;
     this._rule.addValidator(validator);
     return this;

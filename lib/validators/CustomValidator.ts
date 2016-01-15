@@ -3,19 +3,19 @@ import {ValidationResult} from '../ValidationResult';
 import {ValidationContext} from '../ValidationContext'
 
 export class CustomValidator extends Validator {
-  private custom:(value:any) => Promise<boolean>;
+  private custom: (value: any) => Promise<boolean>;
 
-  constructor(context:ValidationContext, custom:(value:any) => Promise<boolean>) {
+  constructor(context: ValidationContext, custom: (value: any) => Promise<boolean>) {
     super(context);
     this.custom = custom;
   }
 
-  public defaultMessageFormat():string {
+  public defaultMessageFormat(): string {
     return "Custom validation failed.";
   }
 
   public args() {
-    return [ ];
+    return [];
   }
 
   public async validate(): Promise<ValidationResult> {

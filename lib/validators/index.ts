@@ -4,8 +4,8 @@ import {LengthValidator} from './LengthValidator';
 import {CustomValidator} from './CustomValidator';
 
 export {
-  Validator,
-  EqualValidator,
-  LengthValidator,
-  CustomValidator
+Validator,
+EqualValidator,
+LengthValidator,
+CustomValidator
 }

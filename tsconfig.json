@@ -37,7 +37,12 @@
     "typings/mocha/mocha.d.ts",
     "typings/tsd.d.ts"
   ],
+  "formatCodeOptions": {
+    "indentSize": 2,
+    "tabSize": 2
+  },
   "atom": {
-    "rewriteTsconfig": true
+    "rewriteTsconfig": true,
+    "formatOnSave": true
   }
 }
