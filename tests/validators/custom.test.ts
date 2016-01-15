@@ -12,20 +12,20 @@ describe("Custom Validator", function () {
   }
 
   var data = [
-    [ 'Star Wars', false, isGreeting, `'Star Wars' is not a greeting` ],
-    [ 'Hi', true, isGreeting, `'Hi' is a greeting` ],
+    [ `Star Wars is not a greeting`, 'Star Wars', false, isGreeting,  ],
+    [ `Hi is a greeting`, 'Hi', true, isGreeting,  ],
   ];
 
   var testCase = async function (item) {
-    var context = new ValidationContext(item[0]);
+    var context = new ValidationContext(item[1]);
     var rule = new ValidationRule(context);
-    rule.addValidator(new CustomValidator(context, item[2]));
+    rule.addValidator(new CustomValidator(context, item[3]));
     var result = await rule.validate();
-    expect(result.success).to.be.equal(item[1]);
+    expect(result.success).to.be.equal(item[2]);
   };
 
   data.forEach(function (item:any[]) {
-    it(item[3], async () => {
+    it(item[0], async () => {
       await testCase(item)
     });
   });

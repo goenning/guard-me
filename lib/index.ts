@@ -1,6 +1,5 @@
 import {Assertion} from './Assertion';
-import {ensure} from './ensure';
-import {Guard} from './Guard';
+import {ensure, Guard} from './Guard';
 import {ValidationRule} from './ValidationRule';
 import {ValidationResult, ValidationFailure} from './ValidationResult';
 import {Validator} from './validators/Validator';

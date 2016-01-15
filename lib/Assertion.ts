@@ -28,7 +28,7 @@ export class Assertion {
     return this;
   }
 
-  length(min:number, max?:number): Assertion {
+  length(min:number, max:number): Assertion {
     this._rule.addValidator(new validators.LengthValidator(this._context, min, max));
     return this;
   }

@@ -4,40 +4,32 @@ import {expect} from 'chai';
 describe("Equal Validator", function () {
 
   var data = [
-    [ 'Star Wars', 'Star Trek', false, `Value should equal Star Trek` ],
-    [ 'Star Wars', 'Star Wars', true ],
-    [ 1, 1, true ],
-    [ 1, '1', false, `Value should equal 1` ],
-    [ 1.2, 1.2, true ],
-    [ { bar:'bar' }, { bar:'bar' }, true ],
-    [ { bar:'bar' }, { foo:'bar' }, false, `Value should equal {"foo":"bar"}` ]
+    [ `'Star Wars' != 'Star Trek'`, 'Star Wars', 'Star Trek', false, `Value should equal Star Trek` ],
+    [ `'Star Wars' == 'Star Wars'`, 'Star Wars', 'Star Wars', true ],
+    [ `1 == 1`, 1, 1, true ],
+    [ `1 != '1'`, 1, '1', false, `Value should equal 1` ],
+    [ `1.2 == 1.2`, 1.2, 1.2, true ],
+    [ `{ bar:'bar' } == { bar:'bar' }`, { bar:'bar' }, { bar:'bar' }, true ],
+    [ `{ bar:'bar' } != { foo:'bar' }`, { bar:'bar' }, { foo:'bar' }, false, `Value should equal {"foo":"bar"}` ]
   ];
 
-  var testCase = function (item) {
-    return async function() {
-      var context = new ValidationContext(item[0]);
-      var rule = new ValidationRule(context);
-      rule.addValidator(new EqualValidator(context, item[1]));
-      var result = await rule.validate();
-      expect(result.success).to.be.equal(item[2]);
+  var testCase = async function (item) {
+    var context = new ValidationContext(item[1]);
+    var rule = new ValidationRule(context);
+    rule.addValidator(new EqualValidator(context, item[2]));
+    var result = await rule.validate();
+    expect(result.success).to.be.equal(item[3]);
 
-      if (item[2] === false) {
-        expect(result.failures.length).to.be.equal(1);
-        expect(result.failures[0].message).to.be.equal(item[3]);
-      }
-    };
+    if (item[3] === false) {
+      expect(result.failures.length).to.be.equal(1);
+      expect(result.failures[0].message).to.be.equal(item[4]);
+    }
   };
 
-  var print = function(value) {
-    if (typeof(value) === 'string') {
-      return `'${value}'`;
-    }
-    return value;
-  }
-
-  data.forEach(function (item) {
-    var testName = `${print(item[0])} ${(item[2]) ? '==' : '!='} ${print(item[1])}`;
-    it(testName, testCase(item));
+  data.forEach(function (item:any[]) {
+    it(item[0], async () => {
+      await testCase(item)
+    });
   });
 
 })

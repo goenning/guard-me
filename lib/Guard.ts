@@ -6,6 +6,10 @@ export interface Ensurer<T> {
   (check: (value:any) => Assertion, object:T): void;
 }
 
+export function ensure<T>( fn?: Ensurer<T> ): Guard<T> {
+  return new Guard<T>(fn);
+}
+
 export class CheckResult {
   public valid:boolean;
   public messages:string[]

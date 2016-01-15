@@ -32,7 +32,11 @@ describe("General object validation", function () {
 
     await guard.check(request)
 
-    expect(request.title).to.be.equal('Garmin Swim')
+    expect(request).to.deep.equal({
+      id: 1,
+      title: 'Garmin Swim',
+      slug: 'garmin-swim'
+    })
   })
 
   it("should validate when using multiple custom validation", async function() {
