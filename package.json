@@ -1,7 +1,7 @@
 {
   "name": "guard-me",
   "private": false,
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "next-generation validation library for node.js",
   "main": "build/lib/index.js",
   "typings": "build/lib/index.d.ts",
