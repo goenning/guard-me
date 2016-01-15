@@ -6,11 +6,13 @@
   "main": "build/lib/index.js",
   "typings": "build/lib/index.d.ts",
   "scripts": {
-    "prepublish": "rm -rf ./build && ntsc",
-    "pretest" : "npm run lint",
-    "build" : "rm -rf ./build && ntsc",
+    "build": "rm -rf ./build && ntsc",
     "lint": "tslint -c tslint.json lib/**/*.ts",
-    "test": "mocha build/tests --recursive"
+    "test": "istanbul cover node_modules/mocha/bin/_mocha -- build/tests --recursive",
+    "check-coverage": "istanbul check-coverage --lines 100 --statement 100 --branch 100 --function 100",
+    "mocha": "mocha build/tests --recursive",
+    "prepublish": "npm run build && npm test && npm run lint && npm run check-coverage",
+    "posttest": "npm run lint && npm run check-coverage"
   },
   "keywords": [
     "validation"
@@ -26,6 +28,7 @@
   "author": "Guilherme Oenning <oenning.ti@gmail.com>",
   "devDependencies": {
     "chai": "^3.4.1",
+    "istanbul": "^0.4.2",
     "mocha": "^2.3.4",
     "ntypescript": "^1.201601110604.1",
     "tslint": "^3.2.1",
