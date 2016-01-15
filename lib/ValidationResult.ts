@@ -10,14 +10,14 @@ export class ValidationFailure {
     return this._property;
   }
 
-  constructor(property:string, message: string) {
+  constructor(property: string, message: string) {
     this._message = message;
     this._property = property;
   }
 }
 
 export class ValidationResult {
-  private _success:boolean;
+  private _success: boolean;
   private _failures: ValidationFailure[];
 
   constructor() {
@@ -39,7 +39,7 @@ export class ValidationResult {
   }
 
   public addFailures(failures: ValidationFailure[]) {
-    for(var failure of failures) {
+    for (let failure of failures) {
       this.addFailure(failure);
     }
   }

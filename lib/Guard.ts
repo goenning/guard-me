@@ -1,40 +1,30 @@
-import {Assertion} from './Assertion';
-import {ExpressionProperty} from './ExpressionProperty';
-import * as _ from 'lodash';
+import {Assertion} from "./Assertion";
+import {ExpressionProperty} from "./ExpressionProperty";
+import * as _ from "lodash";
 
 export interface Ensurer<T> {
-  (check: (value:any) => Assertion, object:T): void;
+  (check: (value: any, name?: string) => Assertion, object: T): void;
 }
 
-export function ensure<T>( fn?: Ensurer<T> ): Guard<T> {
-  return new Guard<T>(fn);
+export function ensure<T>(fn?: Ensurer<T>): Guard<T> {
+  return new Guard<T>(fn)
 }
 
 export class CheckResult {
-  public valid:boolean;
-  public errors:{ property:string, messages:string[] }[]
+  public valid: boolean
+  public errors: { property: string, messages: string[] }[]
 
   constructor() {
     this.valid = true
     this.errors = []
   }
 
-  addMessage(property:string, message:string) {
+  addMessage(property: string, message: string) {
     this.valid = false
     this.errors.push({
       property,
-      messages: [ message ]
+      messages: [message]
     })
-  }
-
-  addMessages(property:string, messages:string[]) {
-    this.valid = false
-    for(var message of messages) {
-      this.errors.push({
-        property,
-        messages: [ message ]
-      })
-    }
   }
 }
 
@@ -47,38 +37,44 @@ export class Guard<T> {
     this._assertions = [];
   }
 
-  async check(object:T): Promise<CheckResult> {
+  async check(object: T): Promise<CheckResult> {
     let hijacked = false;
+
     if (_.isPlainObject(object)) {
       hijacked = true;
-      for(var propt in object){
-        object[propt] = new ExpressionProperty(object[propt], propt);
+      for (let propt in object) {
+        object[propt] = new ExpressionProperty(propt, object[propt]);
       }
     }
 
     if (this._ensureFunc) {
-      this._ensureFunc((value:any) => {
-        if (!hijacked)
-          value = new ExpressionProperty(value);
+      this._ensureFunc((property: any, name?: string) => {
 
-        var assert = new Assertion(value);
+        if (!hijacked)
+          property = new ExpressionProperty("value", property);
+
+        if (name !== undefined)
+          property = new ExpressionProperty(property.name, property.value, name);
+
+        let assert = new Assertion(property);
         this._assertions.push(assert);
         return assert;
+
       }, object)
     }
 
-    var checkResult = new CheckResult()
-    for(var assertion of this._assertions) {
-      var assertResult = await assertion.resolve()
+    let checkResult = new CheckResult()
+    for (let assertion of this._assertions) {
+      let assertResult = await assertion.resolve()
       if (!assertResult.success) {
-        for(var failure of assertResult.failures) {
+        for (let failure of assertResult.failures) {
           checkResult.addMessage(failure.property, failure.message);
         }
       }
     }
 
     if (hijacked) {
-      for(var propt in object){
+      for (let propt in object) {
         object[propt] = object[propt].value;
       }
     }

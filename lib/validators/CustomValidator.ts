@@ -1,27 +1,35 @@
-import {Validator} from './Validator';
-import {ValidationResult} from '../ValidationResult';
-import {ValidationContext} from '../ValidationContext'
+import {Validator} from "./Validator";
+import {ValidationResult} from "../ValidationResult";
+import {ValidationContext} from "../ValidationContext"
+
+export interface CustomValidationFunction {
+  (value: any): Promise<boolean> | boolean;
+}
 
 export class CustomValidator extends Validator {
-  private custom:(value:any) => Promise<boolean>;
+  private custom: CustomValidationFunction;
 
-  constructor(context:ValidationContext, custom:(value:any) => Promise<boolean>) {
+  constructor(context: ValidationContext, custom: CustomValidationFunction) {
     super(context);
     this.custom = custom;
   }
 
-  public defaultMessageFormat():string {
+  public defaultMessageFormat(): string {
     return "Custom validation failed.";
   }
 
   public args() {
-    return [ ];
+    return [];
   }
 
   public async validate(): Promise<ValidationResult> {
-    var ok = await this.custom(this._context.value);
-    if (!ok)
+    try {
+      let ok = await this.custom(this._context.value);
+      if (!ok)
+        return this.failure();
+    } catch (e) {
       return this.failure();
+    }
 
     return this.success();
   }

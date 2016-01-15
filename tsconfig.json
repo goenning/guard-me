@@ -3,7 +3,10 @@
     "target": "ES6",
     "module": "commonjs",
     "declaration": true,
-    "outDir": "build"
+    "outDir": "build",
+    "noEmitHelpers": true,
+    "noImplicitAny": false,
+    "removeComments": false
   },
   "filesGlob": [
     "**/*.ts",
@@ -31,13 +34,20 @@
     "tests/validators/custom.test.ts",
     "tests/validators/equal.test.ts",
     "tests/validators/length.test.ts",
+    "tests/validators/testcase.ts",
     "typings/assertion-error/assertion-error.d.ts",
     "typings/chai/chai.d.ts",
     "typings/lodash/lodash.d.ts",
     "typings/mocha/mocha.d.ts",
+    "typings/node/node.d.ts",
     "typings/tsd.d.ts"
   ],
+  "formatCodeOptions": {
+    "indentSize": 2,
+    "tabSize": 2
+  },
   "atom": {
-    "rewriteTsconfig": true
+    "rewriteTsconfig": true,
+    "formatOnSave": true
   }
 }
