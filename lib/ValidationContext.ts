@@ -4,7 +4,7 @@ export class ValidationContext {
 
   constructor(value: any, propertyName?:string){
     this._value = value;
-    this._propertyName = (propertyName === undefined) ? 'Value' : propertyName;
+    this._propertyName = (propertyName === undefined) ? 'value' : propertyName;
   }
 
   public get value(): any {

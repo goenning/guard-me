@@ -31,7 +31,7 @@ export abstract class Validator {
 
   protected failure() {
     var message:string = this.messageFormat;
-    message = message.replace(`{PropertyName}`, this._context.propertyName);
+    message = message.replace(`{PropertyName}`, _.capitalize(this._context.propertyName));
 
     var args = this.args();
     if (args.length > 0) {
@@ -46,7 +46,7 @@ export abstract class Validator {
     }
 
     var result = new ValidationResult();
-    result.addFailure(new ValidationFailure(message));
+    result.addFailure(new ValidationFailure(this._context.propertyName, message));
     return result;
   }
 }

@@ -1,12 +1,18 @@
 export class ValidationFailure {
   private _message: string;
+  private _property: string;
 
   public get message(): string {
     return this._message;
   }
 
-  constructor(message: string) {
+  public get property(): string {
+    return this._property;
+  }
+
+  constructor(property:string, message: string) {
     this._message = message;
+    this._property = property;
   }
 }
 

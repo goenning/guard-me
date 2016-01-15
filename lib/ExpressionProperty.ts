@@ -6,8 +6,7 @@ export class ExpressionProperty {
 
   constructor(value:any, propertyName?:string) {
     this._value = value;
-    if (propertyName !== undefined)
-      this._propertyName = _.capitalize(propertyName);
+    this._propertyName = propertyName;
   }
 
   public get propertyName() {

@@ -28,8 +28,10 @@ describe("Basic validation", function () {
 
     var result = await guard.check("Star Wars")
     expect(result.valid).to.be.false
-    expect(result.messages[0]).to.be.equal('Value is not T-Shirt')
-    expect(result.messages[1]).to.be.equal('Value length should be between 1 and 5')
+    expect(result.errors[0].property).to.be.equal("value")
+    expect(result.errors[0].messages[0]).to.be.equal('Value is not T-Shirt')
+    expect(result.errors[1].property).to.be.equal("value")
+    expect(result.errors[1].messages[0]).to.be.equal('Value length should be between 1 and 5')
   })
 
 })

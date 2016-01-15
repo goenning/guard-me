@@ -22,7 +22,8 @@ describe("General object validation", function () {
     var result = await guard.check(request)
 
     expect(result.valid).to.be.false
-    expect(result.messages[0]).to.be.equal("Title should have between 1 and 5 characters")
+    expect(result.errors[0].property).to.be.equal("title")
+    expect(result.errors[0].messages[0]).to.be.equal("Title should have between 1 and 5 characters")
   })
 
   it("should not change object values after validation", async function() {
@@ -52,6 +53,7 @@ describe("General object validation", function () {
 
     var result = await guard.check(request)
     expect(result.valid).to.be.true
+    expect(result.errors.length).to.be.equal(0)
   })
 
 })

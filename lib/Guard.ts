@@ -12,22 +12,29 @@ export function ensure<T>( fn?: Ensurer<T> ): Guard<T> {
 
 export class CheckResult {
   public valid:boolean;
-  public messages:string[]
+  public errors:{ property:string, messages:string[] }[]
 
   constructor() {
     this.valid = true
-    this.messages = []
+    this.errors = []
   }
 
-  addMessage(message:string) {
+  addMessage(property:string, message:string) {
     this.valid = false
-    this.messages.push(message)
+    this.errors.push({
+      property,
+      messages: [ message ]
+    })
   }
 
-  addMessages(messages:string[]) {
+  addMessages(property:string, messages:string[]) {
     this.valid = false
-    for(var message of messages)
-      this.addMessage(message)
+    for(var message of messages) {
+      this.errors.push({
+        property,
+        messages: [ message ]
+      })
+    }
   }
 }
 
@@ -65,7 +72,7 @@ export class Guard<T> {
       var assertResult = await assertion.resolve()
       if (!assertResult.success) {
         for(var failure of assertResult.failures) {
-          checkResult.addMessage(failure.message);
+          checkResult.addMessage(failure.property, failure.message);
         }
       }
     }
