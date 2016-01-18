@@ -38,29 +38,31 @@ export class Guard<T> {
   }
 
   async check(object: T): Promise<CheckResult> {
-    let hijacked = false;
+    let cloned: any = {};
 
-    if (_.isPlainObject(object)) {
-      hijacked = true;
+    if (typeof object === "object") {
       for (let propt in object) {
-        object[propt] = new ExpressionProperty(propt, object[propt]);
+        cloned[propt] = new ExpressionProperty(propt, object[propt])
       }
+    } else {
+      cloned = object
     }
 
     if (this._ensureFunc) {
       this._ensureFunc((property: any, name?: string) => {
 
-        if (!hijacked)
+        if (typeof property !== "object")
           property = new ExpressionProperty("value", property);
 
         if (name !== undefined)
           property = new ExpressionProperty(property.name, property.value, name);
 
+
         let assert = new Assertion(property);
         this._assertions.push(assert);
         return assert;
 
-      }, object)
+      }, cloned)
     }
 
     let checkResult = new CheckResult()
@@ -70,12 +72,6 @@ export class Guard<T> {
         for (let failure of assertResult.failures) {
           checkResult.addMessage(failure.property, failure.message);
         }
-      }
-    }
-
-    if (hijacked) {
-      for (let propt in object) {
-        object[propt] = object[propt].value;
       }
     }
 

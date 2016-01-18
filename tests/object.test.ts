@@ -14,7 +14,7 @@ describe("General object validation", function() {
     slug: "garmin-swim"
   }
 
-  it("should return valid and empty messages when check has succeed", async function() {
+  it("should return invalid and messages when check has succeed", async function() {
     let guard = ensure<SaveProductRequest>((check, object) => {
       check(object.title).length(1, 5)
     })
