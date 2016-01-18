@@ -1,27 +1,27 @@
-import * as _ from "lodash";
+import * as _ from "lodash"
 
 export class ExpressionProperty {
-  private _name: string;
-  private _displayName: string;
-  private _value: any;
+  private _name: string
+  private _displayName: string
+  private _value: any
 
   constructor(name: string, value: any, displayName?: string) {
-    this._value = value;
-    this._name = name;
-    this._displayName = displayName;
+    this._value = value
+    this._name = name
+    this._displayName = displayName
   }
 
   public get name() {
-    return this._name;
+    return this._name
   }
 
   public get displayName() {
     if (this._displayName === undefined)
-      return _.capitalize(this._name);
-    return this._displayName;
+      return _.capitalize(this._name)
+    return this._displayName
   }
 
   public get value() {
-    return this._value;
+    return this._value
   }
 }

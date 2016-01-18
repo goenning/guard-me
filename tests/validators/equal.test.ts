@@ -16,15 +16,15 @@ describe("Equal Validator", function() {
   ok(`{ bar:"bar" } == { bar:"bar" }`, { bar: "bar" }, equal({ bar: "bar" }))
 
   fail(`1 != "1"`, 1, equal("1"), [
-    { property: "value", message: `Value should be equal to 1` }
+    { property: "value", message: `Value must be equal to 1` }
   ])
 
   fail(`"Star Wars" != "Star Trek"`, "Star Wars", equal("Star Trek"), [
-    { property: "value", message: `Value should be equal to Star Trek` }
+    { property: "value", message: `Value must be equal to Star Trek` }
   ])
 
   fail(`{ bar:"bar" } != { foo:"bar" }`, { bar: "bar" }, equal({ foo: "bar" }), [
-    { property: "value", message: `Value should be equal to {"foo":"bar"}` }
+    { property: "value", message: `Value must be equal to {"foo":"bar"}` }
   ])
 
 })

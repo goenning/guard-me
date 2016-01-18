@@ -5,7 +5,7 @@ import {fail, ok} from "./testcase"
 describe("Custom Validator", function() {
 
   let isGreeting = function(text: any): boolean {
-    return text === "Hi" || text === "Hello";
+    return text === "Hi" || text === "Hello"
   }
 
   let throwError = function(text: any): Promise<boolean> {

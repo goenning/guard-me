@@ -18,7 +18,7 @@ export class ValidationRule {
   public async validate(): Promise<ValidationResult> {
     let ruleResult = new ValidationResult();
     for (let validator of this._validators) {
-      let result = await validator.validate(this._context);
+      let result = await validator.validate();
       if (!result.success) {
         ruleResult.addFailures(result.failures);
       }

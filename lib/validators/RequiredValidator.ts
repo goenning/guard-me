@@ -15,17 +15,13 @@ export class RequiredValidator extends Validator {
   }
 
   public args() {
-    return [ ]
+    return []
   }
 
-  public validate(): ValidationResult {
+  public check() {
     let emptyArray = _.isArray(this._context.value) && this._context.value.length === 0
     let empty = !this._context.value
 
-    if (emptyArray || empty) {
-      return this.failure()
-    }
-
-    return this.success()
+    return !(emptyArray || empty)
   }
 }
