@@ -39,7 +39,7 @@ export class Guard<T> {
 
   async check(object: T): Promise<CheckResult> {
     let cloned: any = {};
-
+    console.log(Object.getOwnPropertyNames(Object.getPrototypeOf(object)))
     if (typeof object === "object") {
       for (let propt in object) {
         cloned[propt] = new ExpressionProperty(propt, object[propt])
