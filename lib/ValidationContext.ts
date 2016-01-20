@@ -1,10 +1,10 @@
-import {ExpressionProperty} from "./ExpressionProperty";
+import {PropertyWrapper} from "./PropertyWrapper";
 
 export class ValidationContext {
-  private _property: ExpressionProperty;
+  private _property: PropertyWrapper;
   private _value: any;
 
-  constructor(property: ExpressionProperty) {
+  constructor(property: PropertyWrapper) {
     this._value = property.value;
     this._property = property;
   }
@@ -13,7 +13,7 @@ export class ValidationContext {
     return this._value;
   }
 
-  public get property(): ExpressionProperty {
+  public get property(): PropertyWrapper {
     return this._property;
   }
 }

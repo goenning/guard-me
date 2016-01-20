@@ -3,23 +3,23 @@ import {ValidationResult} from "../ValidationResult"
 import {ValidationContext} from "../ValidationContext"
 import * as _ from "lodash"
 
-export class EqualValidator extends Validator {
-  private expected: any
+export class MatchesValidator extends Validator {
+  private regexp: RegExp
 
-  constructor(context: ValidationContext, expected: any) {
+  constructor(context: ValidationContext, regexp: RegExp) {
     super(context)
-    this.expected = expected
+    this.regexp = regexp
   }
 
   public defaultMessageFormat(): string {
-    return "{PropertyName} must be equal to {0}"
+    return "{PropertyName} must match {0}"
   }
 
   public args() {
-    return [this.expected]
+    return [this.regexp.toString()]
   }
 
   public check() {
-    return _.isEqual(this._context.value, this.expected)
+    return this.regexp.test(this._context.value)
   }
 }

@@ -12,18 +12,14 @@ export class NotEqualValidator extends Validator {
   }
 
   public defaultMessageFormat(): string {
-    return "{PropertyName} should not be equal to {0}";
+    return "{PropertyName} must not be equal to {0}";
   }
 
   public args() {
     return [this.expected];
   }
 
-  public validate(): ValidationResult {
-    let equal = _.isEqual(this._context.value, this.expected);
-    if (equal)
-      return this.failure();
-
-    return this.success();
+  public check() {
+    return !_.isEqual(this._context.value, this.expected);
   }
 }

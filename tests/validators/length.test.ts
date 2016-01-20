@@ -14,23 +14,23 @@ describe("Length Validator", function() {
   ok(`["A", "B", "C"] == 3`, ["A", "B", "C"], length(3, 3))
 
   fail(`"Hello World" <= 5`, "Hello World", length(0, 5), [
-    { property: "value", message: "Value should have no more than 5 characters" }
+    { property: "value", message: "Value must have no more than 5 characters" }
   ])
 
   fail(`"Hello World" >= 40 && <= 50`, "Hello World", length(40, 50), [
-    { property: "value", message: "Value should have between 40 and 50 characters" }
+    { property: "value", message: "Value must have between 40 and 50 characters" }
   ])
 
   fail(`[1, 2, 3] >= 0 && <= 2`, [1, 2, 3], length(0, 2), [
-    { property: "value", message: "Value should have no more than 2 elements" }
+    { property: "value", message: "Value must have no more than 2 elements" }
   ])
 
   fail(`[1, 2, 3] >= 0 && <= 2`, [1, 2, 3], length(undefined, 2), [
-    { property: "value", message: "Value should have no more than 2 elements" }
+    { property: "value", message: "Value must have no more than 2 elements" }
   ])
 
   fail(`[1, 2, 3] >= 1 && <= 2`, [1, 2, 3], length(1, 2), [
-    { property: "value", message: "Value should have between 1 and 2 elements" }
+    { property: "value", message: "Value must have between 1 and 2 elements" }
   ])
 
 })

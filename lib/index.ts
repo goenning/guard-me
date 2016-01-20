@@ -4,7 +4,7 @@ import {ValidationRule} from "./ValidationRule";
 import {ValidationResult, ValidationFailure} from "./ValidationResult";
 import {Validator} from "./validators/Validator";
 import {ValidationContext} from "./ValidationContext";
-import {ExpressionProperty} from "./ExpressionProperty";
+import {PropertyWrapper} from "./PropertyWrapper";
 import * as validators from "./validators/";
 
 /* istanbul ignore next */
@@ -30,6 +30,6 @@ ValidationRule,
 ValidationResult,
 ValidationFailure,
 ValidationContext,
-ExpressionProperty,
+PropertyWrapper,
 validators
 }

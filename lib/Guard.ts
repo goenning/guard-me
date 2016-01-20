@@ -1,5 +1,5 @@
 import {Assertion} from "./Assertion";
-import {ExpressionProperty} from "./ExpressionProperty";
+import {PropertyWrapper} from "./PropertyWrapper";
 import * as _ from "lodash";
 
 export interface Ensurer<T> {
@@ -37,30 +37,50 @@ export class Guard<T> {
     this._assertions = [];
   }
 
-  async check(object: T): Promise<CheckResult> {
-    let hijacked = false;
+  private isClassInstance(object) {
+    let properties = Object.getOwnPropertyNames(Object.getPrototypeOf(object))
+    return properties.indexOf("__proto__") === -1
+  }
 
-    if (_.isPlainObject(object)) {
-      hijacked = true;
-      for (let propt in object) {
-        object[propt] = new ExpressionProperty(propt, object[propt]);
+  private shadowCopy(obj) {
+    let copy = {}
+    if (typeof obj === "object") {
+      if (this.isClassInstance(obj)) {
+        for (let prop of Object.getOwnPropertyNames(Object.getPrototypeOf(obj))) {
+          copy[prop] = obj[prop]
+        }
+      } else {
+        for (let prop in obj) {
+          copy[prop] = obj[prop]
+        }
+      }
+      for (let prop in obj) {
+        copy[prop] = new PropertyWrapper(prop, obj[prop])
       }
     }
+    else {
+      copy = obj
+    }
+    return copy
+  }
+
+  async check(object: T): Promise<CheckResult> {
+    let cloned: any = this.shadowCopy(object)
 
     if (this._ensureFunc) {
       this._ensureFunc((property: any, name?: string) => {
 
-        if (!hijacked)
-          property = new ExpressionProperty("value", property);
+        if (typeof property !== "object")
+          property = new PropertyWrapper("value", property);
 
         if (name !== undefined)
-          property = new ExpressionProperty(property.name, property.value, name);
+          property = new PropertyWrapper(property.name, property.value, name);
 
         let assert = new Assertion(property);
         this._assertions.push(assert);
         return assert;
 
-      }, object)
+      }, cloned)
     }
 
     let checkResult = new CheckResult()
@@ -70,12 +90,6 @@ export class Guard<T> {
         for (let failure of assertResult.failures) {
           checkResult.addMessage(failure.property, failure.message);
         }
-      }
-    }
-
-    if (hijacked) {
-      for (let propt in object) {
-        object[propt] = object[propt].value;
       }
     }
 
