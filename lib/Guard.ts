@@ -37,16 +37,35 @@ export class Guard<T> {
     this._assertions = [];
   }
 
-  async check(object: T): Promise<CheckResult> {
-    let cloned: any = {};
-    console.log(Object.getOwnPropertyNames(Object.getPrototypeOf(object)))
-    if (typeof object === "object") {
-      for (let propt in object) {
-        cloned[propt] = new ExpressionProperty(propt, object[propt])
+  private isClassInstance(object) {
+    let properties = Object.getOwnPropertyNames(Object.getPrototypeOf(object))
+    return properties.indexOf("__proto__") === -1
+  }
+
+  private shadowCopy(obj) {
+    let copy = {}
+    if (typeof obj === "object") {
+      if (this.isClassInstance(obj)) {
+        for (let prop of Object.getOwnPropertyNames(Object.getPrototypeOf(obj))) {
+          copy[prop] = obj[prop]
+        }
+      } else {
+        for (let prop in obj) {
+          copy[prop] = obj[prop]
+        }
       }
-    } else {
-      cloned = object
+      for (let prop in obj) {
+        copy[prop] = new ExpressionProperty(prop, obj[prop])
+      }
     }
+    else {
+      copy = obj
+    }
+    return copy
+  }
+
+  async check(object: T): Promise<CheckResult> {
+    let cloned: any = this.shadowCopy(object)
 
     if (this._ensureFunc) {
       this._ensureFunc((property: any, name?: string) => {
@@ -56,7 +75,6 @@ export class Guard<T> {
 
         if (name !== undefined)
           property = new ExpressionProperty(property.name, property.value, name);
-
 
         let assert = new Assertion(property);
         this._assertions.push(assert);
