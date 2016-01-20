@@ -1,7 +1,7 @@
 import {ValidationContext} from "./ValidationContext"
 import {ValidationRule} from "./ValidationRule"
 import {ValidationResult} from "./ValidationResult"
-import {ExpressionProperty} from "./ExpressionProperty"
+import {PropertyWrapper} from "./PropertyWrapper"
 import * as validators from "./validators"
 
 export class Assertion {
@@ -9,7 +9,7 @@ export class Assertion {
   private _context: ValidationContext
   private _lastValidator: validators.Validator
 
-  public constructor(property: ExpressionProperty) {
+  public constructor(property: PropertyWrapper) {
     this._context = new ValidationContext(property)
     this._rule = new ValidationRule(this._context)
   }

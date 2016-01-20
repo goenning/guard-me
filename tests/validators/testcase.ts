@@ -1,7 +1,7 @@
 import {
   ValidationRule,
   ValidationContext,
-  ExpressionProperty
+  PropertyWrapper
 } from "../../lib";
 
 import {Validator} from "../../lib/validators/Validator";
@@ -56,7 +56,7 @@ export function fail(
 }
 
 export async function testCase(item: TestCaseItem) {
-  let property = new ExpressionProperty("value", item.value)
+  let property = new PropertyWrapper("value", item.value)
   let context = new ValidationContext(property);
   let rule = new ValidationRule(context);
   rule.addValidator(item.createValidator(context));

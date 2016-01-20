@@ -18,9 +18,9 @@
   ],
   "files": [
     "lib/Assertion.ts",
-    "lib/ExpressionProperty.ts",
     "lib/Guard.ts",
     "lib/index.ts",
+    "lib/PropertyWrapper.ts",
     "lib/ValidationContext.ts",
     "lib/ValidationResult.ts",
     "lib/ValidationRule.ts",

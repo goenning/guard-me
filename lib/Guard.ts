@@ -1,5 +1,5 @@
 import {Assertion} from "./Assertion";
-import {ExpressionProperty} from "./ExpressionProperty";
+import {PropertyWrapper} from "./PropertyWrapper";
 import * as _ from "lodash";
 
 export interface Ensurer<T> {
@@ -55,7 +55,7 @@ export class Guard<T> {
         }
       }
       for (let prop in obj) {
-        copy[prop] = new ExpressionProperty(prop, obj[prop])
+        copy[prop] = new PropertyWrapper(prop, obj[prop])
       }
     }
     else {
@@ -71,10 +71,10 @@ export class Guard<T> {
       this._ensureFunc((property: any, name?: string) => {
 
         if (typeof property !== "object")
-          property = new ExpressionProperty("value", property);
+          property = new PropertyWrapper("value", property);
 
         if (name !== undefined)
-          property = new ExpressionProperty(property.name, property.value, name);
+          property = new PropertyWrapper(property.name, property.value, name);
 
         let assert = new Assertion(property);
         this._assertions.push(assert);

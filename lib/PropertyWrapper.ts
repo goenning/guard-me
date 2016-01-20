@@ -1,6 +1,7 @@
 import * as _ from "lodash"
 
-export class ExpressionProperty {
+export class PropertyWrapper {
+  public __isPropertyWrapper: boolean = true
   private _name: string
   private _displayName: string
   private _value: any

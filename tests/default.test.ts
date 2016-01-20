@@ -40,4 +40,16 @@ describe("Basic validation", function() {
     expect(object).to.be.equal("Star Wars")
     expect(result.valid).to.be.false
   })
+
+  it("should be able to compare fields of object under validation", async function() {
+    let guard = ensure<any>((check, object) => {
+      check(object.password).equal(object.confirmPassword.value)
+    })
+
+    let result = await guard.check({
+      password: "H3LL0",
+      confirmPassword: "H3LL0"
+    })
+    expect(result.valid).to.be.true
+  })
 })
