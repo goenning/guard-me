@@ -36,6 +36,7 @@
     "lib/validators/RequiredValidator.ts",
     "lib/validators/Validator.ts",
     "tests/class.test.ts",
+    "tests/conditional.test.ts",
     "tests/default.test.ts",
     "tests/messages.test.ts",
     "tests/object.test.ts",

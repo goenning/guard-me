@@ -18,7 +18,7 @@ request.id = 2
 
 describe("ES6 class validation", function() {
   it("should work with es6 class", async function() {
-    let guard = ensure<DeleteProductRequest>((check, object) => {
+    let guard = ensure((check, object) => {
       check(object.id).greaterThan(0)
     })
 

@@ -4,7 +4,7 @@ import {expect} from "chai"
 describe("Custom Message validation", function() {
 
   it("should not do anything when setting custom message without validator", async function() {
-    let guard = ensure<number>((check, object) => {
+    let guard = ensure((check, object) => {
       check(object).message("never used")
     })
     let result = await guard.check(5)
@@ -12,7 +12,7 @@ describe("Custom Message validation", function() {
   })
 
   it("should return custom messages multiple assertions", async function() {
-    let guard = ensure<string>((check, object) => {
+    let guard = ensure((check, object) => {
       check(object).equal("T-Shirt").message("{PropertyName} is not {0}")
         .length(1, 5).message("{PropertyName} length should be between {0} and {1}")
     })
@@ -26,7 +26,7 @@ describe("Custom Message validation", function() {
   })
 
   it("should return custom messages resolved at runtime", async function() {
-    let guard = ensure<string>((check, object) => {
+    let guard = ensure((check, object) => {
       check(object).equal("T-Shirt").message(() => "{PropertyName} is not {0}")
     })
 
@@ -37,7 +37,7 @@ describe("Custom Message validation", function() {
   })
 
   it("should return custom messages resolved async at runtime", async function() {
-    let guard = ensure<string>((check, object) => {
+    let guard = ensure((check, object) => {
       check(object).equal("T-Shirt").message(async () => {
         return new Promise((resolve, reject) => {
           setTimeout(() => resolve("{PropertyName} does not equal {0}"), 100)

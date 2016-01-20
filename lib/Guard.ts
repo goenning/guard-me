@@ -2,12 +2,12 @@ import {Assertion} from "./Assertion";
 import {PropertyWrapper} from "./PropertyWrapper";
 import * as _ from "lodash";
 
-export interface Ensurer<T> {
-  (check: (value: any, name?: string) => Assertion, object: T): void;
+export interface Ensurer {
+  (check: (value: any, name?: string) => Assertion, object: any): void;
 }
 
-export function ensure<T>(fn?: Ensurer<T>): Guard<T> {
-  return new Guard<T>(fn)
+export function ensure(fn?: Ensurer): Guard {
+  return new Guard(fn)
 }
 
 export class CheckResult {
@@ -28,11 +28,11 @@ export class CheckResult {
   }
 }
 
-export class Guard<T> {
-  private _ensureFunc: Ensurer<T>;
+export class Guard {
+  private _ensureFunc: Ensurer;
   private _assertions: Assertion[];
 
-  constructor(fn: Ensurer<T>) {
+  constructor(fn: Ensurer) {
     this._ensureFunc = fn;
     this._assertions = [];
   }
@@ -64,7 +64,7 @@ export class Guard<T> {
     return copy
   }
 
-  async check(object: T): Promise<CheckResult> {
+  async check(object: any): Promise<CheckResult> {
     let cloned: any = this.shadowCopy(object)
 
     if (this._ensureFunc) {
