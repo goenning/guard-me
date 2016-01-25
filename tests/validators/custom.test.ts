@@ -10,11 +10,11 @@ describe("Custom Validator", function() {
 
   let throwError = function(text: any): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
+      if (text === "Boom")
+        throw new Error();
+
       setTimeout(() => {
-        if (text === "Boom")
-          reject(new Error());
-        else
-          resolve(true);
+        resolve(true);
       }, 50)
     })
   }
