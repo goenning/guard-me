@@ -3,7 +3,7 @@
 
 # guard-me
 
-`guard-me` is next-generation validation library for node.js.
+`guard-me` is a next-generation validation library for node.js. It is highly inspired on [JeremySkinner/FluentValidation](https://github.com/JeremySkinner/FluentValidation) for .NET.
 
 > Decouple now your validation from the rest of the code!
 
