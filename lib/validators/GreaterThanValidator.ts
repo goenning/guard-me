@@ -15,9 +15,8 @@ export class GreaterThanValidator extends Validator {
 
   public defaultMessageFormat(): string {
     if (this.inclusive === true)
-      return "{PropertyName} must be greater than or equal to {0}"
-    else
-      return "{PropertyName} must be greater than {0}"
+      return this._context.getMessage("validators.greaterThanOrEqualTo")
+    return this._context.getMessage("validators.greaterThan")
   }
 
   public args() {

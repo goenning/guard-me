@@ -12,7 +12,7 @@ export class NotEqualValidator extends Validator {
   }
 
   public defaultMessageFormat(): string {
-    return "{PropertyName} must not be equal to {0}";
+    return this._context.getMessage("validators.notEqual")
   }
 
   public args() {

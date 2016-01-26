@@ -15,9 +15,8 @@ export class LessThanValidator extends Validator {
 
   public defaultMessageFormat(): string {
     if (this.inclusive === true)
-      return "{PropertyName} must be less than or equal to {0}"
-    else
-      return "{PropertyName} must be less than {0}"
+      return this._context.getMessage("validators.lessThanOrEqualTo")
+    return this._context.getMessage("validators.lessThan")
   }
 
   public args() {

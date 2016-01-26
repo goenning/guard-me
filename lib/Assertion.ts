@@ -10,7 +10,7 @@ export class Assertion {
   private _lastValidator: validators.Validator
 
   public constructor(property: PropertyWrapper) {
-    this._context = new ValidationContext(property)
+    this._context = new ValidationContext(property, require("./locale/en-US.json"))
     this._rule = new ValidationRule(this._context)
   }
 
