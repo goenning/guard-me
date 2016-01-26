@@ -15,7 +15,7 @@ export class InValidator extends Validator {
   }
 
   public defaultMessageFormat(): string {
-    return "{PropertyName} must be inside {0}"
+    return this._context.getMessage("validators.in")
   }
 
   public args() {

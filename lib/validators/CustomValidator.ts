@@ -15,7 +15,7 @@ export class CustomValidator extends Validator {
   }
 
   public defaultMessageFormat(): string {
-    return "Custom validation failed."
+    return this._context.getMessage("validators.custom")
   }
 
   public args() {

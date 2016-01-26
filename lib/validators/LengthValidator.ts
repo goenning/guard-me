@@ -18,12 +18,12 @@ export class LengthValidator extends Validator {
   public defaultMessageFormat(): string {
     if (_.isArray(this._context.value)) {
       return (this.noMin)
-        ? "{PropertyName} must have no more than {1} elements"
-        : "{PropertyName} must have between {0} and {1} elements"
+        ? this._context.getMessage("validators.array_max_length")
+        : this._context.getMessage("validators.array_between_length")
     } else {
       return (this.noMin)
-        ? "{PropertyName} must have no more than {1} characters"
-        : "{PropertyName} must have between {0} and {1} characters"
+        ? this._context.getMessage("validators.string_max_length")
+        : this._context.getMessage("validators.string_between_length")
     }
   }
 

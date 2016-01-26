@@ -12,7 +12,7 @@ export class MatchesValidator extends Validator {
   }
 
   public defaultMessageFormat(): string {
-    return "{PropertyName} must match {0}"
+    return this._context.getMessage("validators.matches")
   }
 
   public args() {

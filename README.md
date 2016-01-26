@@ -27,13 +27,13 @@ var request = {
   slug: 'garmin-swim'
 }
 
-var guard = ensure((check, object) => {
+var guard = ensure.that((check, object) => {
   check(object.title).length(1, 20).must((r) => {
     return r != 'Garmin Swim';
   })
 })
 
-await guard.check(request).then((result) => {
+guard.check(request).then((result) => {
   console.log(result.valid); //false
 })
 ```
@@ -42,17 +42,12 @@ await guard.check(request).then((result) => {
 ```ts
 import {ensure} from 'guard-me'
 
-interface SaveProductRequest {
-  title:string,
-  slug:string
-}
-
-var request:SaveProductRequest = {
+var request = {
   title: 'Garmin Swim',
   slug: 'garmin-swim'
 }
 
-var guard = ensure<SaveProductRequest>((check, object) => {
+var guard = ensure.that((check, object) => {
   check(object.title).length(1, 20).must(r => {
     return r != 'Garmin Swim';
   })

@@ -1,12 +1,12 @@
 {
   "name": "guard-me",
   "private": false,
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "next-generation validation library for node.js",
   "main": "build/lib/index.js",
   "typings": "build/lib/index.d.ts",
   "scripts": {
-    "build": "rm -rf ./build && ntsc",
+    "build": "rm -rf ./build && ntsc && cp --parents lib/locale/* build/",
     "lint": "tslint -c tslint.json lib/**/*.ts tests/**/*.ts",
     "test": "istanbul cover node_modules/mocha/bin/_mocha -- build/tests --recursive",
     "check-coverage": "istanbul check-coverage --lines 100 --statement 100 --branch 100 --function 100",

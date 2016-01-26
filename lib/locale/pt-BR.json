@@ -1,0 +1,18 @@
+{
+  "validators": {
+    "equal": "{PropertyName} deve ser igual a {0}",
+    "custom": "Validação customizada para o campo {PropertyName} falhou.",
+    "greaterThanOrEqualTo": "{PropertyName} deve ser maior ou igual a {0}",
+    "greaterThan": "{PropertyName} deve ser maior que {0}",
+    "lessThanOrEqualTo": "{PropertyName} deve ser menor ou igual a {0}",
+    "lessThan": "{PropertyName} deve ser menor que {0}",
+    "in": "{PropertyName} deve estar contido em {0}",
+    "matches": "{PropertyName} deve atender o formato {0}",
+    "notEqual": "{PropertyName} não deve ser igual a {0}",
+    "required": "{PropertyName} é obrigatório",
+    "array_max_length": "{PropertyName} deve ter no máximo {1} elementos",
+    "array_between_length": "{PropertyName} deve ter entre {0} e {1} elementos",
+    "string_max_length": "{PropertyName} deve ter no máximo {1} caracteres",
+    "string_between_length": "{PropertyName} deve ter entre {0} e {1} caracteres"
+  }
+}

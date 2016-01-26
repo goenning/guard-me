@@ -11,7 +11,7 @@ export class RequiredValidator extends Validator {
   }
 
   public defaultMessageFormat(): string {
-    return "{PropertyName} is required"
+    return this._context.getMessage("validators.required")
   }
 
   public args() {

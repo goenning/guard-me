@@ -57,7 +57,7 @@ export function fail(
 
 export async function testCase(item: TestCaseItem) {
   let property = new PropertyWrapper("value", item.value)
-  let context = new ValidationContext(property);
+  let context = new ValidationContext(property, require("../../lib/locale/en-US.json"));
   let rule = new ValidationRule(context);
   rule.addValidator(item.createValidator(context));
   let result = await rule.validate();
