@@ -4,13 +4,13 @@ import {expect} from "chai"
 describe("Basic validation", function() {
 
   it("should init without validation", async function() {
-    let guard = ensure()
+    let guard = ensure.that()
     let result = await guard.check(5)
     expect(result.valid).to.be.true
   })
 
   it("should validate all validators", async function() {
-    let guard = ensure((check, object) => {
+    let guard = ensure.that((check, object) => {
       check(object.title).required()
         .equal("Star Wars")
         .notEqual("Star Trek")
@@ -31,7 +31,7 @@ describe("Basic validation", function() {
   })
 
   it("should validate multiple assertions", async function() {
-    let guard = ensure((check, object) => {
+    let guard = ensure.that((check, object) => {
       check(object).equal("T-Shirt").length(1, 5).required()
     })
 
@@ -42,7 +42,7 @@ describe("Basic validation", function() {
   })
 
   it("should be able to compare fields of object under validation", async function() {
-    let guard = ensure((check, object) => {
+    let guard = ensure.that((check, object) => {
       check(object.password).equal(object.confirmPassword.value)
     })
 

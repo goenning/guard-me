@@ -27,7 +27,7 @@ var request = {
   slug: 'garmin-swim'
 }
 
-var guard = ensure((check, object) => {
+var guard = ensure.that((check, object) => {
   check(object.title).length(1, 20).must((r) => {
     return r != 'Garmin Swim';
   })
@@ -47,7 +47,7 @@ var request = {
   slug: 'garmin-swim'
 }
 
-var guard = ensure((check, object) => {
+var guard = ensure.that((check, object) => {
   check(object.title).length(1, 20).must(r => {
     return r != 'Garmin Swim';
   })

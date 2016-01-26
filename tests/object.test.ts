@@ -15,7 +15,7 @@ describe("General object validation", function() {
   }
 
   it("should return invalid and messages when check has succeed", async function() {
-    let guard = ensure((check, object) => {
+    let guard = ensure.that((check, object) => {
       check(object.title).length(1, 5)
     })
 
@@ -27,7 +27,7 @@ describe("General object validation", function() {
   })
 
   it("should not change object values after validation", async function() {
-    let guard = ensure((check, object) => {
+    let guard = ensure.that((check, object) => {
       check(object.title).length(1, 5)
     })
 
@@ -41,7 +41,7 @@ describe("General object validation", function() {
   })
 
   it("should be able to name the property for better message text", async function() {
-    let guard = ensure((check, object) => {
+    let guard = ensure.that((check, object) => {
       check(object.title, "Name").length(1, 5)
     })
 
@@ -53,7 +53,7 @@ describe("General object validation", function() {
   })
 
   it("should validate when using multiple custom validation", async function() {
-    let guard = ensure((check, object) => {
+    let guard = ensure.that((check, object) => {
       check(object.title).must(async (o) => {
         return o === "Garmin Swim";
       })

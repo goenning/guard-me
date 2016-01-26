@@ -1,14 +1,7 @@
-import {Assertion} from "./Assertion";
-import {PropertyWrapper} from "./PropertyWrapper";
-import * as _ from "lodash";
-
-export interface Ensurer {
-  (check: (value: any, name?: string) => Assertion, object: any): void;
-}
-
-export function ensure(fn?: Ensurer): Guard {
-  return new Guard(fn)
-}
+import {Assertion} from "./Assertion"
+import {PropertyWrapper} from "./PropertyWrapper"
+import {Ensurer} from "./index"
+import * as _ from "lodash"
 
 export class CheckResult {
   public valid: boolean
@@ -31,10 +24,12 @@ export class CheckResult {
 export class Guard {
   private _ensureFunc: Ensurer;
   private _assertions: Assertion[];
+  private _messages: {};
 
-  constructor(fn: Ensurer) {
+  constructor(fn: Ensurer, messages: {}) {
     this._ensureFunc = fn;
     this._assertions = [];
+    this._messages = messages;
   }
 
   private isClassInstance(object) {
@@ -76,7 +71,7 @@ export class Guard {
         if (name !== undefined)
           property = new PropertyWrapper(property.name, property.value, name);
 
-        let assert = new Assertion(property);
+        let assert = new Assertion(property, this._messages);
         this._assertions.push(assert);
         return assert;
 

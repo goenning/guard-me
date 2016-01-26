@@ -3,7 +3,7 @@ import {expect} from "chai"
 
 describe("Conditional validation", function() {
 
-  let contentIsRequired = ensure((check, object) => {
+  let contentIsRequired = ensure.that((check, object) => {
     check(object.title).required()
     if (!object.draft.value) {
       check(object.content).required()
