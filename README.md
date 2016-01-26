@@ -18,43 +18,40 @@ Built-in validators:
 - length (min, max)
 - Do anything you want with `custom` validation! Supports Sync and Async validations using Promises
 
-####Javascript example
 ```javascript
 var ensure = require('guard-me').ensure
 
+var guard = ensure.that((check, object) => {
+  check(object.title).required().length(1, 20)
+  check(object.slug).required().message("Slug is mandatory! It's currently empty")
+  check(object.tags).length(1, 3)
+})
+
+//Example A
 var request = {
   title: 'Garmin Swim',
-  slug: 'garmin-swim'
+  slug: 'garmin-swim',
+  tags: ['watch', 'garmin', 'sports']
 }
-
-var guard = ensure.that((check, object) => {
-  check(object.title).length(1, 20).must((r) => {
-    return r != 'Garmin Swim';
-  })
-})
 
 guard.check(request).then((result) => {
-  console.log(result.valid); //false
+  console.log(result.valid); //output: true
 })
-```
 
-####TypeScript example
-```ts
-import {ensure} from 'guard-me'
-
+//Example B
 var request = {
   title: 'Garmin Swim',
-  slug: 'garmin-swim'
+  slug: '',
+  tags: []
 }
 
-var guard = ensure.that((check, object) => {
-  check(object.title).length(1, 20).must(r => {
-    return r != 'Garmin Swim';
-  })
-})
+guard.check(request).then((result) => {
+  console.log(result.valid); //output: false
 
-var execute = (async () => {
-  var result = await guard.check(request)
-  console.log(result.valid); //false
-})()
+  console.log(result.errors[0].property); //output: slug
+  console.log(result.errors[0].messages[0]); //output: Slug is mandatory! It's currently empty
+
+  console.log(result.errors[1].property); //output: tags
+  console.log(result.errors[1].messages[0]); //output: Tags must have between 1 and 3 elements
+})
 ```
