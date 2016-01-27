@@ -11,7 +11,7 @@
     "test": "istanbul cover node_modules/mocha/bin/_mocha -- build/tests --recursive",
     "check-coverage": "istanbul check-coverage --lines 100 --statement 100 --branch 100 --function 100",
     "mocha": "mocha build/tests --recursive",
-    "prepublish": "npm run build && npm test",
+    "prepublish": "typings install && npm run build",
     "posttest": "npm run lint && npm run check-coverage"
   },
   "keywords": [
@@ -35,7 +35,8 @@
     "mocha": "^2.3.4",
     "ntypescript": "^1.201601110604.1",
     "tslint": "^3.2.1",
-    "typescript": "^1.7.5"
+    "typescript": "^1.7.5",
+    "typings": "^0.6.2"
   },
   "license": "GPL-3.0",
   "engines": {
