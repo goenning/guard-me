@@ -14,6 +14,8 @@
   ],
   "exclude": [
     "node_modules",
+    "typings/browser",
+    "typings/browser.d.ts",
     "build"
   ],
   "files": [
@@ -51,12 +53,12 @@
     "tests/validators/notequal.test.ts",
     "tests/validators/required.test.ts",
     "tests/validators/testcase.ts",
-    "typings/assertion-error/assertion-error.d.ts",
-    "typings/chai/chai.d.ts",
-    "typings/lodash/lodash.d.ts",
-    "typings/mocha/mocha.d.ts",
-    "typings/node/node.d.ts",
-    "typings/tsd.d.ts"
+    "typings/main.d.ts",
+    "typings/main/ambient/assertion-error/assertion-error.d.ts",
+    "typings/main/ambient/chai/chai.d.ts",
+    "typings/main/ambient/lodash/lodash.d.ts",
+    "typings/main/ambient/mocha/mocha.d.ts",
+    "typings/main/ambient/node/node.d.ts"
   ],
   "formatCodeOptions": {
     "indentSize": 2,

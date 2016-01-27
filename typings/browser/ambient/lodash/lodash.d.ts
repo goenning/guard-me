@@ -1,3 +1,5 @@
+// Compiled using typings@0.6.2
+// Source: https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/d1f6bde13f2209be42e86c3686761e8bfcbb50a5/lodash/lodash.d.ts
 // Type definitions for Lo-Dash
 // Project: http://lodash.com/
 // Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>
